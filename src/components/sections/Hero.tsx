@@ -54,7 +54,7 @@ const Hero: React.FC = () => {
 
   return (
     <div className="bg-white overflow-hidden">
-      <section ref={ref} className="relative min-h-[28vh] flex items-center overflow-hidden bg-white pb-4">
+      <section ref={ref} className="relative min-h-[28vh] flex items-center overflow-hidden bg-white pb-4 pt-8">
         {/* Animated Background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none hidden">
           <motion.div
