@@ -50,7 +50,7 @@ const FAQ: React.FC = () => {
   ];
 
   return (
-    <section ref={ref} className="section-container bg-gradient-to-b from-background-light to-white">
+    <section ref={ref} className="section-container bg-gradient-to-b from-white to-background-light">
       <motion.div
         className="text-center mb-16"
         initial={{ opacity: 0, y: 20 }}
