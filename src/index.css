@@ -47,6 +47,51 @@
   .gradient-text {
     @apply bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent;
   }
+
+  /* Footer animated waves (smooth alternating background-position) */
+  .footer-waves {
+    position: relative;
+    height: 160px;
+    overflow: hidden;
+  }
+  .footer-waves .wave-layer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -30%;
+    width: 200%;
+    height: 100%;
+    background-repeat: repeat-x;
+    /* Anchor the graphic to the bottom so the filled area meets the footer */
+    background-position: left bottom;
+    background-size: 1000px 100%;
+    opacity: 1;
+  }
+  .footer-waves .wave-back {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160'><path d='M0,60 C200,20 400,20 600,60 C800,100 1000,100 1200,60 L1200,160 L0,160 Z' fill='%23FF9BD9'/></svg>");
+    animation: waveLeft 4s ease-in-out infinite alternate;
+  }
+  .footer-waves .wave-mid1 {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160'><path d='M0,63 C200,23 400,23 600,63 C800,103 1000,103 1200,63 L1200,160 L0,160 Z' fill='%23FF85CF'/></svg>");
+    animation: waveRight 6s ease-in-out infinite alternate;
+  }
+  .footer-waves .wave-mid2 {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160'><path d='M0,67 C200,27 400,27 600,67 C800,107 1000,107 1200,67 L1200,160 L0,160 Z' fill='%23FF77C4'/></svg>");
+    animation: waveLeft 8s ease-in-out infinite alternate;
+  }
+  .footer-waves .wave-front {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160'><path d='M0,70 C200,30 400,30 600,70 C800,110 1000,110 1200,70 L1200,160 L0,160 Z' fill='%23FF69B4'/></svg>");
+    animation: waveRight 10s ease-in-out infinite alternate;
+  }
+
+  @keyframes waveLeft {
+    0% { background-position-x: 0; }
+    100% { background-position-x: -1000px; }
+  }
+  @keyframes waveRight {
+    0% { background-position-x: 0; }
+    100% { background-position-x: 1000px; }
+  }
 }
 
 @layer utilities {

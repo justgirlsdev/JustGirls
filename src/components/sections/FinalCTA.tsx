@@ -4,32 +4,12 @@ import { motion } from 'framer-motion';
 
 const FinalCTA: React.FC = () => {
   return (
-    <section className="section-container bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute -top-20 -right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.div
-          className="absolute -bottom-20 -left-20 w-96 h-96 bg-secondary/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.3, 1],
-            rotate: [0, -90, 0],
-          }}
-          transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-        />
-      </div>
-
+    <section className="section-container bg-background-light relative overflow-hidden">
       <div className="relative z-10 max-w-4xl mx-auto">
         <motion.div
           className="bg-gradient-to-br from-text via-text to-text/90 rounded-[3rem] p-12 md:p-16 text-center shadow-soft-lg"
-          initial={{ opacity: 0, y: 30, scale: 0.95 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8 }}
         >

@@ -19,8 +19,7 @@ const Header: React.FC = () => {
 
   const navItems = [
     { name: 'How We Work', path: '/services' },
-    { name: 'Blog', path: '/about' },
-    { name: 'FAQ', path: '/contact' },
+    { name: 'FAQ', path: '/faq' },
     { name: 'Contact Us', path: '/contact' },
   ];
 
@@ -41,7 +40,7 @@ const Header: React.FC = () => {
             <motion.img
               src={logo}
               alt="JustGirls"
-              className="h-14 w-auto"
+              className="h-10 sm:h-14 w-auto"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             />
@@ -107,7 +106,7 @@ const Header: React.FC = () => {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="md:hidden bg-white rounded-2xl shadow-soft-lg mt-4 p-6 space-y-4"
+              className="md:hidden bg-white rounded-2xl shadow-soft-lg mt-4 mb-4 px-6 pt-2 pb-4 space-y-4"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
@@ -123,9 +122,11 @@ const Header: React.FC = () => {
                   {item.name}
                 </Link>
               ))}
-              <Link to="/apply" onClick={() => setIsMobileMenuOpen(false)}>
-                <button className="btn-primary w-full">GET STARTED</button>
-              </Link>
+              <div className="pt-2">
+                <Link to="/apply" onClick={() => setIsMobileMenuOpen(false)}>
+                  <button className="btn-primary w-full">GET STARTED</button>
+                </Link>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -134,7 +135,7 @@ const Header: React.FC = () => {
     
     {/* Fade overlay below header when scrolled */}
     <motion.div
-      className="fixed top-0 left-0 right-0 h-40 pointer-events-none z-40"
+      className="fixed top-0 left-0 right-0 h-24 pointer-events-none z-40"
       style={{
         background: 'linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0.95) 50%, rgba(255, 255, 255, 0.6) 80%, transparent 100%)'
       }}

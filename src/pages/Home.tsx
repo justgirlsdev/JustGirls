@@ -3,7 +3,6 @@ import Layout from '../components/layout/Layout';
 import Hero from '../components/sections/Hero';
 import Services from '../components/sections/Services';
 import Process from '../components/sections/Process';
-import Testimonials from '../components/sections/Testimonials';
 import FAQ from '../components/sections/FAQ';
 import FinalCTA from '../components/sections/FinalCTA';
 
@@ -16,7 +15,6 @@ const Home: React.FC = () => {
       <Hero />
       <Services />
       <Process />
-      <Testimonials />
       <FAQ />
       <FinalCTA />
     </Layout>

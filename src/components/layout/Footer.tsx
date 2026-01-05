@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
     { name: 'How We Work', path: '/services' },
     { name: 'Blog', path: '/about' },
     { name: 'Contact Us', path: '/contact' },
-    { name: 'FAQ', path: '/contact' },
+    { name: 'FAQ', path: '/faq' },
   ];
 
   const socialLinks = [
@@ -44,103 +44,63 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-background-light border-t border-gray-100">
-      {/* Wave decoration */}
-      <div className="w-full h-12 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 relative overflow-hidden">
-        <svg
-          className="absolute bottom-0 w-full h-full"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
-            opacity=".25"
-            className="fill-primary/20"
-          />
-          <path
-            d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
-            opacity=".5"
-            className="fill-secondary/20"
-          />
-          <path
-            d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
-            className="fill-accent/20"
-          />
-        </svg>
+    <>
+      {/* Animated Wave Decoration - Above Footer */}
+      <div className="footer-waves bg-background-light">
+        <div className="wave-layer wave-back" />
+        <div className="wave-layer wave-mid1" />
+        <div className="wave-layer wave-mid2" />
+        <div className="wave-layer wave-front" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {/* Brand */}
-          <div className="space-y-4">
-            <Link to="/" className="inline-block">
-              <motion.img
-                src={logo}
-                alt="JustGirls"
-                className="h-16 w-auto"
-                whileHover={{ scale: 1.05 }}
-              />
-            </Link>
-            <p className="text-text-light text-sm">
-              Launch your full backend system in 72 hours – chat, content, marketing done for you.
-            </p>
-          </div>
+      <footer className="bg-[#FF69B4]">
+        <div className="max-w-7xl mx-auto px-4 pt-20 sm:px-6 lg:px-8">
+          {/* Centered brand */}
+          <div className="flex flex-col items-center space-y-6">
+          <Link to="/" className="inline-block">
+            <motion.img src={logo} alt="JustGirls" className="h-16 w-auto" whileHover={{ scale: 1.05 }} />
+          </Link>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="font-heading font-semibold text-text mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              {footerLinks.map((link) => (
-                <li key={link.path}>
-                  <Link
-                    to={link.path}
-                    className="text-text-light hover:text-primary transition-colors duration-200 text-sm"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Horizontal Quick Links */}
+          <div className="flex flex-wrap justify-center items-center gap-4 text-white">
+            {footerLinks.map((link, idx) => (
+              <React.Fragment key={link.path}>
+                <Link to={link.path} className="hover:text-gray-900 transition-colors font-medium">
+                  {link.name}
+                </Link>
+                {idx < footerLinks.length - 1 && <span className="text-white/70">|</span>}
+              </React.Fragment>
+            ))}
           </div>
 
           {/* Social Links */}
-          <div>
-            <h3 className="font-heading font-semibold text-text mb-4">Follow Us</h3>
-            <div className="flex space-x-4">
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.name}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-text-light hover:text-primary transition-colors duration-200"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  aria-label={social.name}
-                >
-                  {social.icon}
-                </motion.a>
-              ))}
-            </div>
+          <div className="flex space-x-6">
+            {socialLinks.map((social) => (
+              <motion.a
+                key={social.name}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-900 hover:text-white transition-colors"
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label={social.name}
+              >
+                {social.icon}
+              </motion.a>
+            ))}
           </div>
-        </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <p className="text-text-light text-sm">
-            Copyright © JustGirls LLC {currentYear} – All Rights Reserved
-          </p>
-          <div className="flex space-x-6 text-sm">
-            <Link to="/legal" className="text-text-light hover:text-primary transition-colors">
-              Privacy Policy
-            </Link>
-            <Link to="/legal" className="text-text-light hover:text-primary transition-colors">
-              Terms of Service
-            </Link>
+          {/* Bottom Bar */}
+          <div className="w-full pt-8 pb-7 border-t border-white/30 text-center">
+            <p className="text-white/80 text-sm">
+              Copyright © JustGirls LLC {currentYear} – All Rights Reserved
+            </p>
           </div>
         </div>
       </div>
-    </footer>
+      </footer>
+    </>
   );
 };
 

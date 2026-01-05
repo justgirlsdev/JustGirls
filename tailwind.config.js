@@ -53,6 +53,9 @@ export default {
         'slide-up': 'slideUp 0.6s ease-out',
         'scale-in': 'scaleIn 0.4s ease-out',
         'pulse-soft': 'pulseSoft 2s ease-in-out infinite',
+        'wave-slow': 'waveOscillate 8s ease-in-out infinite alternate',
+        'wave-medium': 'waveOscillateReverse 6s ease-in-out infinite alternate',
+        'wave-fast': 'waveOscillate 4s ease-in-out infinite alternate',
       },
       keyframes: {
         float: {
@@ -74,6 +77,14 @@ export default {
         pulseSoft: {
           '0%, 100%': { boxShadow: '0 0 0 0 rgba(255, 20, 147, 0.4)' },
           '50%': { boxShadow: '0 0 0 10px rgba(255, 20, 147, 0)' },
+        },
+        waveOscillate: {
+          '0%': { transform: 'translateX(0) translateY(0)' },
+          '100%': { transform: 'translateX(-30px) translateY(-10px)' },
+        },
+        waveOscillateReverse: {
+          '0%': { transform: 'translateX(-30px) translateY(-10px)' },
+          '100%': { transform: 'translateX(0) translateY(0)' },
         },
       },
     },
