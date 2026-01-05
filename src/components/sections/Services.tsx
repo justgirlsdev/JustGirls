@@ -103,27 +103,6 @@ const Services: React.FC = () => {
     },
   ];
 
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: 'easeOut',
-      },
-    },
-  };
-
   return (
     <section ref={ref} className="py-12 md:py-20 bg-gradient-to-b from-white to-background-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
