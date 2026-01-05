@@ -45,7 +45,7 @@ const ContactForm: React.FC = () => {
 
         {/* Social Media Links */}
         <motion.div
-          className="flex justify-center items-center gap-6 mb-16"
+          className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
