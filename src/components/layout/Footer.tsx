@@ -8,9 +8,8 @@ const Footer: React.FC = () => {
 
   const footerLinks = [
     { name: 'How We Work', path: '/services' },
-    { name: 'Blog', path: '/about' },
-    { name: 'Contact Us', path: '/contact' },
     { name: 'FAQ', path: '/faq' },
+    { name: 'Contact Us', path: '/contact' },
   ];
 
   const socialLinks = [
