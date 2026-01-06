@@ -24,8 +24,8 @@ const FinalCTA: React.FC = () => {
   }, []);
 
   return (
-    <section id="cta-section" className="section-container bg-background-light relative overflow-hidden">
-      <div className="relative z-10 max-w-4xl mx-auto">
+    <section id="cta-section" className="section-container bg-background-light relative overflow-hidden flex items-center justify-center min-h-screen">
+      <div className="relative z-10 max-w-4xl mx-auto w-full">
         <motion.div
           className="bg-text rounded-[3rem] p-12 md:p-16 text-center shadow-soft-lg relative overflow-hidden"
           initial={{ opacity: 0, y: 30 }}
@@ -105,23 +105,10 @@ const FinalCTA: React.FC = () => {
           >
             <Link to="/apply">
               <motion.button
-                className="bg-primary text-white border-2 border-white hover:bg-primary/90 font-bold text-lg px-12 py-4 rounded-full transition-all duration-300 shadow-soft hover:shadow-glow relative"
+                className="btn-primary text-lg px-12 py-4 border-2 border-white font-bold rounded-full shadow-soft hover:shadow-glow relative"
                 whileTap={{ scale: 0.98 }}
               >
-                <motion.span
-                  className="absolute inset-0 rounded-full border-2 border-white"
-                  initial={{ opacity: 0, scale: 1 }}
-                  whileHover={{
-                    opacity: [0.5, 0],
-                    scale: [1, 1.1],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    ease: "easeOut"
-                  }}
-                />
+                <span className="absolute inset-0 rounded-full border-2 border-white pointer-events-none" />
                 GET STARTED
               </motion.button>
             </Link>

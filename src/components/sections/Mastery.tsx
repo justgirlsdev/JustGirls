@@ -49,7 +49,7 @@ const Mastery: React.FC = () => {
           <motion.img
             src={pathSvg}
             alt=""
-            className="absolute pointer-events-none hidden lg:block"
+            className="absolute pointer-events-none hidden xl:block"
             style={{ 
               zIndex: 0,
               width: '28%',
@@ -69,7 +69,7 @@ const Mastery: React.FC = () => {
           <motion.img
             src={pathVerticalSvg}
             alt=""
-            className="absolute pointer-events-none lg:hidden"
+            className="absolute pointer-events-none xl:hidden"
             style={{ 
               zIndex: 0,
               width: 'auto',
@@ -85,24 +85,24 @@ const Mastery: React.FC = () => {
             transition={{ duration: 1 }}
           />
 
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-8 lg:gap-12 relative" style={{ zIndex: 1 }}>
+          <div className="flex flex-col xl:flex-row items-center justify-between gap-6 md:gap-8 xl:gap-12 relative" style={{ zIndex: 1 }}>
             {/* Top Side - Platform Cards (vertical on mobile, horizontal on desktop) */}
-            <div className="flex flex-col lg:flex-row gap-3 lg:gap-6 flex-wrap justify-center lg:justify-start items-center">
+            <div className="flex flex-col xl:flex-row gap-3 xl:gap-6 flex-wrap justify-center xl:justify-start items-center">
               {/* Column 1 - Facebook & YouTube */}
-              <div className="flex lg:flex-col gap-3 lg:gap-5 justify-center">
+              <div className="flex xl:flex-col gap-3 xl:gap-5 justify-center">
                 <PlatformCard name="Facebook" icon={facebookIcon} delay={0.3} direction="left" />
                 <PlatformCard name="YouTube" icon={youtubeIcon} delay={0.4} direction="right" />
               </div>
 
               {/* Column 2 - TikTok, Paid Promo, Reddit */}
-              <div className="flex lg:flex-col gap-3 lg:gap-5">
+              <div className="flex xl:flex-col gap-3 xl:gap-5">
                 <PlatformCard name="TikTok" icon={tiktokIcon} delay={0.5} direction="left" />
                 <PlatformCard name="Paid Promo" icon={paidPromoIcon} delay={0.6} direction="up" />
                 <PlatformCard name="Reddit" icon={redditIcon} delay={0.7} direction="right" />
               </div>
 
               {/* Column 3 - Twitter & Instagram */}
-              <div className="flex lg:flex-col gap-3 lg:gap-5 justify-center">
+              <div className="flex xl:flex-col gap-3 xl:gap-5 justify-center">
                 <PlatformCard name="Twitter" icon={twitterIcon} delay={0.8} direction="left" />
                 <PlatformCard name="Instagram" icon={instagramIcon} delay={0.9} direction="right" />
               </div>
@@ -110,7 +110,7 @@ const Mastery: React.FC = () => {
 
             {/* Center Icon - Static on mobile, absolute on desktop */}
             <motion.div
-              className="flex justify-center lg:absolute z-20 my-4 lg:my-0"
+              className="flex justify-center xl:absolute z-20 my-4 xl:my-0"
               style={{ left: 'calc(50% - 60px)', top: 'calc(50% - 60px)' }}
               initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -130,8 +130,8 @@ const Mastery: React.FC = () => {
             </motion.div>
 
             {/* Bottom/Right Side - Payout Cards */}
-            <div className="flex justify-start md:justify-center lg:justify-end items-center relative mt-6 lg:mt-0 w-full lg:w-auto">
-              <div className="relative lg:mr-[100px] ml-4 md:ml-0 lg:ml-0">
+            <div className="flex justify-center xl:justify-end items-center relative mt-6 xl:mt-0 w-full xl:w-auto">
+              <div className="relative xl:mr-[100px]">
                 {/* Main payment graph card */}
                 <motion.div 
                   className="relative"
@@ -145,7 +145,7 @@ const Mastery: React.FC = () => {
                 
                 {/* Successful payout card - smaller, layered on top right */}
                 <motion.div 
-                  className="absolute -top-6 md:-top-8 -right-20 md:-right-24 z-10"
+                  className="absolute top-6 md:top-8 -right-20 md:-right-24 z-10"
                   initial={{ opacity: 0, scale: 0.8, y: -10 }}
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
@@ -233,7 +233,22 @@ const PaymentRow: React.FC<{ label: string; amount: string }> = ({ label, amount
 // Success Payout Card - Smaller overlay card
 const SuccessPayoutCard: React.FC<{ isLoading: boolean }> = ({ isLoading }) => {
   return (
-    <div className="bg-white rounded-2xl p-3 md:p-4 shadow-2xl border border-pink-100 w-36 md:w-48">
+    <motion.div 
+      className="bg-white rounded-2xl p-3 md:p-4 shadow-soft hover:shadow-glow transition-all duration-300 transform hover:-translate-y-1 hover:z-30 cursor-pointer w-36 md:w-48 relative"
+      animate={{
+        boxShadow: [
+          '0 4px 20px rgba(255, 20, 147, 0.1)',
+          '0 0 30px rgba(255, 20, 147, 0.3)',
+          '0 4px 20px rgba(255, 20, 147, 0.1)',
+        ]
+      }}
+      transition={{
+        duration: 2,
+        repeat: Infinity,
+        repeatType: "loop",
+        ease: "easeInOut"
+      }}
+    >
       {/* Success Icon */}
       <div className="flex justify-center mb-2 md:mb-3">
         <motion.div
@@ -321,7 +336,7 @@ const SuccessPayoutCard: React.FC<{ isLoading: boolean }> = ({ isLoading }) => {
           The money is on route to your bank!
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

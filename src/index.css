@@ -19,20 +19,26 @@
 @layer components {
   .btn-primary {
     @apply bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105;
+  }
+
+  .btn-primary:hover {
     animation: pulse-shadow-explode 2s ease-out infinite;
   }
 
   .btn-secondary {
     @apply bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold px-8 py-3 rounded-full transition-all duration-300;
+  }
+
+  .btn-secondary:hover {
     animation: pulse-shadow-explode 2s ease-out infinite;
   }
 
   @keyframes pulse-shadow-explode {
     0% {
-      box-shadow: 0 0 0 0 rgba(255, 20, 147, 0.7);
+      box-shadow: 0 0 0 0 rgba(255, 20, 147, 0.85);
     }
     100% {
-      box-shadow: 0 0 0 8px rgba(255, 20, 147, 0);
+      box-shadow: 0 0 0 14px rgba(255, 20, 147, 0);
     }
   }
 
