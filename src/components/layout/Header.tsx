@@ -61,7 +61,7 @@ const Header: React.FC = () => {
               </Link>
             ))}
             
-            <Link to="/apply">
+            <a href="#apply" onClick={(e) => { e.preventDefault(); import('../../lib/onboarding').then(m => m.openOnboarding()); }}>
               <motion.button
                 className="btn-primary"
                 whileHover={{ scale: 1.05 }}
@@ -69,7 +69,7 @@ const Header: React.FC = () => {
               >
                 GET STARTED
               </motion.button>
-            </Link>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}

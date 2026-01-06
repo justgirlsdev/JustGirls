@@ -23,6 +23,8 @@
 
   .btn-primary:hover {
     animation: pulse-shadow-explode 2s ease-out infinite;
+    /* small inner glow so outer pulse is visible */
+    box-shadow: 0 6px 18px rgba(236,72,153,0.12);
   }
 
   .btn-secondary {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+
 import { motion } from 'framer-motion';
 
 const FinalCTA: React.FC = () => {
@@ -103,7 +103,7 @@ const FinalCTA: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="relative z-10"
           >
-            <Link to="/apply">
+            <a href="#apply" onClick={(e) => { e.preventDefault(); import('../../lib/onboarding').then(m => m.openOnboarding()); }}>
               <motion.button
                 className="btn-primary text-lg px-12 py-4 border-2 border-white font-bold rounded-full shadow-soft hover:shadow-glow relative"
                 whileTap={{ scale: 0.98 }}
@@ -111,7 +111,7 @@ const FinalCTA: React.FC = () => {
                 <span className="absolute inset-0 rounded-full border-2 border-white pointer-events-none" />
                 GET STARTED
               </motion.button>
-            </Link>
+            </a>
           </motion.div>
         </motion.div>
       </div>

@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import FAQPage from './pages/FAQ';
 import Contact from './pages/Contact';
 import ScrollToTop from './components/ScrollToTop';
+import OnboardingModal from './components/OnboardingModal/OnboardingModal';
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         <Route path="/legal" element={<Home />} />
         <Route path="/faq" element={<FAQPage />} />
       </Routes>
+      <OnboardingModal />
     </Router>
   );
 };
