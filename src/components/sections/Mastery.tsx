@@ -24,16 +24,6 @@ const Mastery: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const platformCards = [
-    { name: 'Twitch', icon: twitchIcon, delay: 0.1 },
-    { name: 'TikTok', icon: tiktokIcon, delay: 0.2 },
-    { name: 'Twitter', icon: twitterIcon, delay: 0.3 },
-    { name: 'YouTube', icon: youtubeIcon, delay: 0.15 },
-    { name: 'Paid Promo', icon: paidPromoIcon, delay: 0.25 },
-    { name: 'Instagram', icon: instagramIcon, delay: 0.35 },
-    { name: 'Reddit', icon: redditIcon, delay: 0.2 },
-  ];
-
   return (
     <section className="py-20 bg-gradient-to-b from-white to-pink-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -150,7 +140,7 @@ const Mastery: React.FC = () => {
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ duration: 0.5, ease: "easeOut" }}
                 >
-                  <PayoutCard isLoading={isPayoutLoading} />
+                  <PayoutCard />
                 </motion.div>
                 
                 {/* Successful payout card - smaller, layered on top right */}
@@ -203,7 +193,7 @@ const PlatformCard: React.FC<{ name: string; icon: string; delay: number; direct
 };
 
 // Payout Card with Loading Animation
-const PayoutCard: React.FC<{ isLoading: boolean }> = ({ isLoading }) => {
+const PayoutCard: React.FC = () => {
   return (
     <div className="relative bg-white rounded-lg md:rounded-xl p-2 md:p-4 shadow-xl border border-pink-100 max-w-[220px] md:max-w-xs w-full">
       {/* Payment Graph */}
