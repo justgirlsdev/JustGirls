@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '../components/layout/Layout';
 import Hero from '../components/sections/Hero';
+import Mastery from '../components/sections/Mastery';
 import Services from '../components/sections/Services';
 import Process from '../components/sections/Process';
 import FAQ from '../components/sections/FAQ';
@@ -14,6 +15,7 @@ const Home: React.FC = () => {
     >
       <Hero />
       <Services />
+      <Mastery />
       <Process />
       <FAQ />
       <FinalCTA />

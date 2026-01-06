@@ -90,7 +90,7 @@ const Hero: React.FC = () => {
               transition={{ duration: 0.8 }}
             >
               <motion.h1
-                className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-text leading-tight"
+                className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-text leading-tight text-center md:text-left"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
@@ -115,7 +115,7 @@ const Hero: React.FC = () => {
 
                 <span className="relative block text-center">
                   Women Creators
-                  <svg className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-[115%] h-4 overflow-visible" viewBox="0 0 350 18" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                  <svg className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-[70%] md:w-[115%] h-4 overflow-visible" viewBox="0 0 350 18" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
                     <motion.path
                       d="M5 10 C 70 6, 140 8, 205 9 C 250 9.5, 295 11, 345 10"
                       stroke="#FF1493"
@@ -143,7 +143,7 @@ const Hero: React.FC = () => {
               </motion.h1>
 
               <motion.p
-                className="text-base md:text-lg text-text-light leading-relaxed max-w-xl"
+                className="text-base md:text-lg text-text-light leading-relaxed max-w-xl mx-auto md:mx-0 text-center md:text-left"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}

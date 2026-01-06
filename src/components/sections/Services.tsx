@@ -236,7 +236,7 @@ const Services: React.FC = () => {
                       <img 
                         src={phone1Preview} 
                         alt="Statistics Dashboard" 
-                        className="w-full h-auto drop-shadow-2xl rounded-3xl"
+                        className="w-full h-auto drop-shadow-2xl rounded-none md:rounded-3xl"
                       />
                     </motion.div>
 
@@ -251,7 +251,7 @@ const Services: React.FC = () => {
                       <img 
                         src={phone2Preview} 
                         alt="Revenue Dashboard" 
-                        className="w-full h-auto drop-shadow-2xl rounded-3xl"
+                        className="w-full h-auto drop-shadow-2xl rounded-none md:rounded-3xl"
                       />
                     </motion.div>
                   </div>
@@ -271,21 +271,6 @@ const Services: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* Bottom Section */}
-        <motion.div
-          className="text-center mt-20"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          <h3 className="text-2xl md:text-3xl font-heading font-semibold text-text mb-4">
-            Unleash Creative Mastery
-          </h3>
-          <p className="text-text-light text-lg max-w-2xl mx-auto">
-            Focus on what you do best - creating. We handle everything else.
-          </p>
-        </motion.div>
       </div>
     </section>
   );
