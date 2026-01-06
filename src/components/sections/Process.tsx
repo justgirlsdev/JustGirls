@@ -13,13 +13,13 @@ const Process: React.FC = () => {
         <div className="relative max-w-5xl mx-auto space-y-40">
           
           {/* Card 1 - Creator consulting */}
-          <div className="sticky" style={{ top: '6rem' }}>
+          <div className="sticky top-[6rem]">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6 }}
-              className="bg-pink-100 rounded-[36px] px-6 py-8 md:px-8 md:py-12 shadow-soft-xl border border-white/40 overflow-visible transition-all duration-300"
+              className="bg-pink-100 rounded-[36px] px-6 pt-8 pb-0 md:px-8 md:pt-12 lg:pb-12 shadow-soft-xl border border-white/40 overflow-visible transition-all duration-300"
             >
               {/* Title inside card */}
               <motion.h2 
@@ -38,9 +38,9 @@ const Process: React.FC = () => {
                 {' '}on a direct path to excellence
               </motion.h2>
 
-              <div className="flex gap-8 lg:gap-12 items-start">
+              <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
                 {/* Left side - Content */}
-                <div className="flex-1 max-w-[52%]">
+                <div className="flex-1 max-w-full lg:max-w-[52%]">
                   <motion.h3 
                     className="text-2xl md:text-3xl lg:text-4xl font-normal text-text mb-6"
                     initial={{ opacity: 0, x: -30 }}
@@ -65,7 +65,7 @@ const Process: React.FC = () => {
                 <motion.img
                   src={firstCardImg}
                   alt="Creator consulting"
-                  className="w-full lg:w-[44%] h-auto self-end -mb-12 lg:mr-12"
+                  className="w-full lg:w-[44%] h-auto self-center lg:self-end lg:-mb-12 lg:mr-12 max-w-full mx-auto sm:max-w-[360px] object-contain"
                   initial={{ opacity: 0, y: 60 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.5 }}
@@ -76,28 +76,17 @@ const Process: React.FC = () => {
           </div>
 
           {/* Card 2 - Strategic Growth */}
-          <div className="sticky" style={{ top: '8rem' }}>
+          <div className="sticky top-[8rem]">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="bg-pink-200 rounded-[36px] px-6 py-8 md:px-8 md:py-12 shadow-soft-xl border border-white/40 overflow-visible transition-all duration-300"
+              className="bg-pink-200 rounded-[36px] px-6 pt-8 pb-0 md:px-8 md:pt-12 lg:pb-12 shadow-soft-xl border border-white/40 overflow-visible transition-all duration-300"
             >
               <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 pt-10 items-start">
-                {/* Left - Image (wider) */}
-                <motion.img
-                  src={secondCardImg}
-                  alt="Strategic Growth"
-                  className="w-full lg:w-[50%] h-auto self-end -mb-12 lg:ml-6"
-                  initial={{ opacity: 0, y: 60 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.7, delay: 0.3 }}
-                />
-
                 {/* Right - Content */}
-                <div className="flex-1 max-w-[48%]">
+                <div className="flex-1 max-w-full lg:max-w-[48%] lg:order-2">
                   <motion.h3 
                     className="text-4xl md:text-5xl lg:text-5xl font-normal text-text mb-6 leading-tight"
                     initial={{ opacity: 0, x: 30 }}
@@ -124,24 +113,35 @@ const Process: React.FC = () => {
                     We don't just post – we engineer a tailor-made funnel with high spending traffic. Our team builds a custom growth funnel across X, TikTok, IG, Threads and more, driving high-quality subs into your page. Every post, story, caption, comments, and campaign is designed to convert and matched to your online persona.
                   </motion.p>
                 </div>
+
+                {/* Left - Image (wider) */}
+                <motion.img
+                  src={secondCardImg}
+                  alt="Strategic Growth"
+                  className="w-full lg:w-[50%] h-auto self-center lg:self-end lg:-mb-12 lg:ml-6 lg:order-1 max-w-full mx-auto sm:max-w-[420px] object-contain"
+                  initial={{ opacity: 0, y: 60 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: 0.7, delay: 0.3 }}
+                />
               </div>
             </motion.div>
           </div>
 
           {/* Card 3 - In-House Chatters */}
-          <div className="sticky" style={{ top: '10rem' }}>
+          <div className="sticky top-[10rem]">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-pink-300 rounded-[36px] px-6 py-8 md:px-8 md:py-12 shadow-soft-xl border border-white/40 overflow-visible transition-all duration-300"
+              className="bg-pink-300 rounded-[36px] px-6 pt-8 pb-0 md:px-8 md:pt-12 lg:pb-12 shadow-soft-xl border border-white/40 overflow-visible transition-all duration-300"
             >
-              <div className="flex gap-8 lg:gap-12 items-start">
+              <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
                 {/* Left side - Content */}
-                <div className="flex-1 max-w-[48%]">
+                <div className="flex-1 max-w-full lg:max-w-[48%]">
                   <motion.h3 
-                    className="text-5xl md:text-6xl lg:text-7xl font-normal text-text mb-4 leading-tight"
+                    className="text-3xl md:text-5xl lg:text-7xl font-normal text-text mb-4 leading-tight"
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, amount: 0.5 }}
@@ -180,7 +180,7 @@ const Process: React.FC = () => {
                 <motion.img
                   src={thirdCardImg}
                   alt="In-House Chatters"
-                  className="w-full lg:w-[50%] h-auto self-end -mb-12 lg:mr-6"
+                  className="w-full lg:w-[50%] h-auto self-center lg:self-end lg:-mb-12 lg:mr-6 max-w-full mx-auto sm:max-w-[420px] object-contain"
                   initial={{ opacity: 0, y: 60 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.5 }}

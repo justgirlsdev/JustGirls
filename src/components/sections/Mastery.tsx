@@ -5,7 +5,7 @@ import twitterIcon from '../../assets/mastery-section/twitter-icon.png';
 import instagramIcon from '../../assets/mastery-section/instagram-icon.png';
 import redditIcon from '../../assets/mastery-section/reddit-icon.png';
 import youtubeIcon from '../../assets/mastery-section/youtube-icon.png';
-import twitchIcon from '../../assets/mastery-section/twitch-icon.png';
+import facebookIcon from '../../assets/mastery-section/facebook-icon.png';
 import paidPromoIcon from '../../assets/mastery-section/paid-promo-icon.png';
 import calendarIcon from '../../assets/mastery-section/calendar-icon.png';
 import paymentGraph from '../../assets/mastery-section/payment-graph.webp';
@@ -88,9 +88,9 @@ const Mastery: React.FC = () => {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-8 lg:gap-12 relative" style={{ zIndex: 1 }}>
             {/* Top Side - Platform Cards (vertical on mobile, horizontal on desktop) */}
             <div className="flex flex-col lg:flex-row gap-3 lg:gap-6 flex-wrap justify-center lg:justify-start items-center">
-              {/* Column 1 - Twitch & YouTube */}
+              {/* Column 1 - Facebook & YouTube */}
               <div className="flex lg:flex-col gap-3 lg:gap-5 justify-center">
-                <PlatformCard name="Twitch" icon={twitchIcon} delay={0.3} direction="left" />
+                <PlatformCard name="Facebook" icon={facebookIcon} delay={0.3} direction="left" />
                 <PlatformCard name="YouTube" icon={youtubeIcon} delay={0.4} direction="right" />
               </div>
 
