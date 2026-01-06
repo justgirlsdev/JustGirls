@@ -9,9 +9,11 @@ const FinalCTA: React.FC = () => {
     const handleMouseMove = (e: MouseEvent) => {
       const rect = document.getElementById('cta-section')?.getBoundingClientRect();
       if (rect) {
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
         setMousePosition({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top,
+          x: e.clientX - rect.left - centerX,
+          y: e.clientY - rect.top - centerY,
         });
       }
     };
@@ -31,33 +33,33 @@ const FinalCTA: React.FC = () => {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8 }}
         >
-          {/* Layered circles that follow mouse - largest at back */}
+          {/* Layered circles that follow mouse - largest at back, smallest at front */}
           <motion.div
-            className="absolute w-[700px] h-[700px] rounded-full bg-white/5 pointer-events-none"
+            className="absolute w-[700px] h-[700px] rounded-full bg-white/10 pointer-events-none"
             animate={{
-              x: mousePosition.x * 0.03 - 350,
-              y: mousePosition.y * 0.03 - 350,
+              x: mousePosition.x * 0.1,
+              y: mousePosition.y * 0.1,
             }}
-            transition={{ type: 'spring', stiffness: 40, damping: 30 }}
-            style={{ top: '45%', left: '50%', zIndex: 0 }}
+            transition={{ type: 'spring', stiffness: 80, damping: 25 }}
+            style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1 }}
           />
           <motion.div
-            className="absolute w-[500px] h-[500px] rounded-full bg-white/8 pointer-events-none"
+            className="absolute w-[500px] h-[500px] rounded-full bg-white/15 pointer-events-none"
             animate={{
-              x: mousePosition.x * 0.05 - 250,
-              y: mousePosition.y * 0.05 - 250,
+              x: mousePosition.x * 0.15,
+              y: mousePosition.y * 0.15,
             }}
-            transition={{ type: 'spring', stiffness: 40, damping: 30 }}
-            style={{ top: '45%', left: '50%', zIndex: 1 }}
+            transition={{ type: 'spring', stiffness: 80, damping: 25 }}
+            style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 2 }}
           />
           <motion.div
-            className="absolute w-[350px] h-[350px] rounded-full bg-white/12 pointer-events-none"
+            className="absolute w-[350px] h-[350px] rounded-full bg-white/20 pointer-events-none"
             animate={{
-              x: mousePosition.x * 0.07 - 175,
-              y: mousePosition.y * 0.07 - 175,
+              x: mousePosition.x * 0.2,
+              y: mousePosition.y * 0.2,
             }}
-            transition={{ type: 'spring', stiffness: 40, damping: 30 }}
-            style={{ top: '45%', left: '50%', zIndex: 2 }}
+            transition={{ type: 'spring', stiffness: 80, damping: 25 }}
+            style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 3 }}
           />
 
           <motion.div
