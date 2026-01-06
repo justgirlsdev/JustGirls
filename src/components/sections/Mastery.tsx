@@ -140,8 +140,8 @@ const Mastery: React.FC = () => {
             </motion.div>
 
             {/* Bottom/Right Side - Payout Cards */}
-            <div className="flex justify-start lg:justify-end items-center relative mt-6 lg:mt-0 w-full lg:w-auto">
-              <div className="relative lg:mr-[100px] ml-4 lg:ml-0">
+            <div className="flex justify-start md:justify-center lg:justify-end items-center relative mt-6 lg:mt-0 w-full lg:w-auto">
+              <div className="relative lg:mr-[100px] ml-4 md:ml-0 lg:ml-0">
                 {/* Main payment graph card */}
                 <motion.div 
                   className="relative"
