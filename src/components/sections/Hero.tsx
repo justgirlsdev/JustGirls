@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useReducedMotion, AnimatePresence } from 'framer-motion';
 import arrowPath from '../../assets/hero-section/arrow-path.svg';
 import modelImage from '../../assets/hero-section/Model Image - HS.png';
 import tweetCard from '../../assets/hero-section/tweet-new.webp';
@@ -32,6 +32,11 @@ const Hero: React.FC = () => {
   });
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+
+  // Mobile/tablet parallax for composite image (subtle, smoothed)
+  const reduceMotion = useReducedMotion();
+  const mobileParallax = reduceMotion ? 0 : useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const mobileParallaxSmoothed = useSpring(mobileParallax, { stiffness: 100, damping: 30 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -292,10 +297,10 @@ const Hero: React.FC = () => {
                 transition={{ duration: 0.3 }}
               />
             </motion.div>
-              {/* Composite image for tablet & mobile */}
-              <div className="mt-6 lg:hidden flex justify-center">
+              {/* Composite image for tablet & mobile (subtle parallax on scroll) */}
+              <motion.div className="mt-6 lg:hidden flex justify-center" style={{ y: mobileParallaxSmoothed }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
                 <img src={rightsideImage} alt="Hero preview" className="w-full max-w-[520px] h-auto object-contain" />
-              </div>          </div>
+              </motion.div>          </div>
         </div>
       </section>
 
