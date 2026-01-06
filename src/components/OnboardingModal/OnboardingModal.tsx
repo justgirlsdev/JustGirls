@@ -128,7 +128,7 @@ const OnboardingModal: React.FC = () => {
                           <div className="mb-4">
                             <input
                               readOnly
-                              value={answers[steps[stepIndex].id] || ''}
+                              value={answers[step.id] || ''}
                               onClick={() => setDropdownOpen(prev => !prev)}
                               placeholder="Type or select an option"
                               className="w-full border-b border-pink-200 py-3 focus:outline-none placeholder-pink-300 cursor-pointer"
@@ -151,31 +151,31 @@ const OnboardingModal: React.FC = () => {
 
                       {steps[stepIndex].type === 'text' && (
                         <div>
-                          <input autoFocus value={answers[steps[stepIndex].id] || ''} onChange={(e) => onChange(e.target.value)} className="w-full border-b border-pink-200 py-3 focus:outline-none" placeholder="Type your answer here..." />
+                          <input autoFocus value={answers[step.id] || ''} onChange={(e) => onChange(e.target.value)} className="w-full border-b border-pink-200 py-3 focus:outline-none" placeholder="Type your answer here..." />
                         </div>
                       )}
 
                       {steps[stepIndex].type === 'email' && (
                         <div>
-                          <input autoFocus type="email" value={answers[steps[stepIndex].id] || ''} onChange={(e) => onChange(e.target.value)} className="w-full border-b border-pink-200 py-3 focus:outline-none" placeholder="name@example.com" />
+                          <input autoFocus type="email" value={answers[step.id] || ''} onChange={(e) => onChange(e.target.value)} className="w-full border-b border-pink-200 py-3 focus:outline-none" placeholder="name@example.com" />
                         </div>
                       )}
 
                       {steps[stepIndex].type === 'number' && (
                         <div>
-                          <input autoFocus type="number" value={answers[steps[stepIndex].id] || ''} onChange={(e) => onChange(e.target.value)} className="w-full border-b border-pink-200 py-3 focus:outline-none" placeholder="Type your answer here..." />
+                          <input autoFocus type="number" value={answers[step.id] || ''} onChange={(e) => onChange(e.target.value)} className="w-full border-b border-pink-200 py-3 focus:outline-none" placeholder="Type your answer here..." />
                         </div>
                       )}
 
                       {steps[stepIndex].type === 'url' && (
                         <div>
-                          <input autoFocus type="url" value={answers[steps[stepIndex].id] || ''} onChange={(e) => onChange(e.target.value)} className="w-full border-b border-pink-200 py-3 focus:outline-none" placeholder="https://" />
+                          <input autoFocus type="url" value={answers[step.id] || ''} onChange={(e) => onChange(e.target.value)} className="w-full border-b border-pink-200 py-3 focus:outline-none" placeholder="https://" />
                         </div>
                       )}
 
                       {steps[stepIndex].type === 'tel' && (
                         <div>
-                          <input autoFocus type="tel" value={answers[steps[stepIndex].id] || ''} onChange={(e) => onChange(e.target.value)} className="w-full border-b border-pink-200 py-3 focus:outline-none" placeholder="(201) 555-0123" />
+                          <input autoFocus type="tel" value={answers[step.id] || ''} onChange={(e) => onChange(e.target.value)} className="w-full border-b border-pink-200 py-3 focus:outline-none" placeholder="(201) 555-0123" />
                         </div>
                       )}
 
