@@ -123,7 +123,7 @@ const Mastery: React.FC = () => {
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 />
-                <div className="relative bg-gradient-to-br from-primary to-secondary p-2 md:p-4 rounded-lg md:rounded-xl shadow-xl">
+                <div className="relative bg-gradient-to-br from-pink-200 to-pink-300 p-2 md:p-4 rounded-lg md:rounded-xl shadow-xl">
                   <img src={faviconIcon} alt="JustGirls" className="w-10 h-10 md:w-20 md:h-20" />
                 </div>
               </div>
