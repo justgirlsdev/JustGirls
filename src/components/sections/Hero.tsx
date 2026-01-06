@@ -10,6 +10,7 @@ import messageGraph from '../../assets/hero-section/message-graph.png';
 import topCreatorCard from '../../assets/hero-section/top-creater-updated.png';
 import topCreatorGraph from '../../assets/hero-section/top-creator-blue-graph.png';
 import payoutCard from '../../assets/hero-section/payout-cleard.webp';
+import rightsideImage from '../../assets/hero-section/rightside-image.png';
 import logoMedium from '../../assets/carousel-section/logo-medium.svg';
 import logoVocal from '../../assets/carousel-section/logo-vocal.svg';
 import logoLinkedIn from '../../assets/carousel-section/linkdln.svg';
@@ -103,9 +104,13 @@ const Hero: React.FC = () => {
                     </motion.span>
                   </AnimatePresence>
                 </span>
-                Women Founded. Built for <span className="relative inline-block">
+
+                <span className="block">Women Founded</span>
+                <span className="block text-center">Built for</span>
+
+                <span className="relative block text-center">
                   Women Creators
-                  <svg className="absolute -bottom-1 -left-3 w-[115%] h-4 overflow-visible" viewBox="0 0 350 18" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                  <svg className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-[115%] h-4 overflow-visible" viewBox="0 0 350 18" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
                     <motion.path
                       d="M5 10 C 70 6, 140 8, 205 9 C 250 9.5, 295 11, 345 10"
                       stroke="#FF1493"
@@ -159,7 +164,7 @@ const Hero: React.FC = () => {
               </motion.div>
             </motion.div>
 
-            {/* Right Side - Floating Cards with Arrow Path Background */}
+            {/* Right Side - Floating Cards with Arrow Path Background (desktop only) */}
             <motion.div
               className="relative h-[600px] hidden lg:block"
               style={{ y }}
@@ -177,7 +182,7 @@ const Hero: React.FC = () => {
               <motion.img
                 src={modelImage}
                 alt="Creator"
-                className="absolute top-32 left-8 w-24 h-auto"
+                className="absolute top-8 sm:top-12 md:top-32 left-4 sm:left-8 w-24 h-auto"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ 
                   opacity: 1, 
@@ -192,7 +197,7 @@ const Hero: React.FC = () => {
               <motion.img
                 src={tweetCard}
                 alt="Tweet Impressions"
-                className="absolute top-20 left-44 w-36 h-auto"
+                className="absolute top-6 sm:top-8 md:top-20 left-4 md:left-44 w-36 h-auto"
                 initial={{ opacity: 0, x: 0, y: -20 }}
                 animate={{ 
                   opacity: 1,
@@ -206,7 +211,7 @@ const Hero: React.FC = () => {
               <motion.img
                 src={tweetGraph}
                 alt="Tweet Impressions"
-                className="absolute top-[165px] left-[195px] w-24 h-auto"
+                className="absolute top-28 md:top-[165px] left-24 md:left-[195px] w-24 h-auto"
                 initial={{ opacity: 0, x: 0, y: -20 }}
                 animate={{ 
                   opacity: 1,
@@ -220,7 +225,7 @@ const Hero: React.FC = () => {
               <motion.img
                 src={messageCard}
                 alt="Messages"
-                className="absolute top-40 right-12 w-44 h-auto"
+                className="absolute top-10 md:top-40 right-4 md:right-12 w-44 h-auto"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ 
                   opacity: 1,
@@ -234,7 +239,7 @@ const Hero: React.FC = () => {
               <motion.img
                 src={messageGraph}
                 alt="Messages"
-                className="absolute top-52 right-20 w-28 h-auto"
+                className="absolute top-14 md:top-52 right-4 md:right-20 w-28 h-auto"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ 
                   opacity: 1,
@@ -248,7 +253,7 @@ const Hero: React.FC = () => {
               <motion.img
                 src={topCreatorCard}
                 alt="Top Creator"
-                className="absolute bottom-24 left-[70px] w-44 h-auto"
+                className="absolute bottom-6 md:bottom-24 left-6 md:left-[70px] w-44 h-auto"
                 initial={{ opacity: 0, x: 0, y: 20 }}
                 animate={{ 
                   opacity: 1,
@@ -262,7 +267,7 @@ const Hero: React.FC = () => {
               <motion.img
                 src={topCreatorGraph}
                 alt="Top Creator"
-                className="absolute bottom-28 left-44 w-18 h-auto"
+                className="absolute bottom-8 md:bottom-28 left-12 md:left-44 w-18 h-auto"
                 initial={{ opacity: 0, x: 0, y: 20 }}
                 animate={{ 
                   opacity: 1,
@@ -276,7 +281,7 @@ const Hero: React.FC = () => {
               <motion.img
                 src={payoutCard}
                 alt="Payout Cleared"
-                className="absolute bottom-0 right-16 w-32 h-auto"
+                className="absolute bottom-0 right-4 md:right-16 w-32 h-auto"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ 
                   opacity: 1,
@@ -287,7 +292,10 @@ const Hero: React.FC = () => {
                 transition={{ duration: 0.3 }}
               />
             </motion.div>
-          </div>
+              {/* Composite image for tablet & mobile */}
+              <div className="mt-6 lg:hidden flex justify-center">
+                <img src={rightsideImage} alt="Hero preview" className="w-full max-w-[520px] h-auto object-contain" />
+              </div>          </div>
         </div>
       </section>
 
