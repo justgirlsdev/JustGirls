@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring, useReducedMotion, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useReducedMotion, AnimatePresence, useAnimation } from 'framer-motion';
 import arrowPath from '../../assets/hero-section/arrow-path.svg';
 import modelImage from '../../assets/hero-section/Model Image - HS.png';
 import tweetCard from '../../assets/hero-section/tweet-new.webp';
@@ -79,7 +79,7 @@ const Hero: React.FC = () => {
         </div>
 
         {/* Content Container */}
-        <div className="max-w-7xl mx-auto px-4 pb-0 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto px-2.5 pb-0 sm:px-2.5 lg:px-2.5 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Side - Text Content */}
             <motion.div
@@ -307,7 +307,7 @@ const Hero: React.FC = () => {
 
       {/* Logo Carousel Strip - Below Hero Section */}
       <section className="py-6 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-0 sm:px-2 lg:px-2">
           <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12">
             {/* Left side - Text */}
             <div className="flex-shrink-0 text-center md:text-left">
@@ -316,53 +316,128 @@ const Hero: React.FC = () => {
             </div>
             
             {/* Right side - Scrolling logos */}
-            <div className="relative flex-1 w-full overflow-hidden">
-              {/* Fade overlays */}
-              <div className="absolute left-0 top-0 bottom-0 w-12 md:w-20 z-10 pointer-events-none bg-gradient-to-r from-white to-transparent" />
-              <div className="absolute right-0 top-0 bottom-0 w-12 md:w-20 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent" />
-              
-              {/* Scrolling container */}
-              <motion.div
-                className="flex items-center space-x-28"
-                animate={{
-                  x: [0, -1200],
-                }}
-                transition={{
-                  x: {
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    duration: 20,
-                    ease: "linear",
-                  },
-                }}
-              >
-                {/* Duplicate the brands for seamless loop */}
-                {[...Array(3)].map((_, setIndex) => (
-                  <React.Fragment key={setIndex}>
-                    {[
-                      { name: 'Medium', logo: logoMedium },
-                      { name: 'Vocal', logo: logoVocal },
-                      { name: 'LinkedIn', logo: logoLinkedIn },
-                      { name: 'Forbes', logo: logoForbes },
-                      { name: 'VICE', logo: logoVice },
-                      { name: 'GQ', logo: logoGQ },
-                      { name: 'Outlook', logo: logoOutlook },
-                    ].map((brand, index) => (
-                      <div
-                        key={`${setIndex}-${index}`}
-                        className="flex items-center gap-2 whitespace-nowrap flex-shrink-0"
-                      >
-                        <img src={brand.logo} alt={brand.name} className="h-8 w-auto grayscale opacity-60" />
-                      </div>
-                    ))}
-                  </React.Fragment>
-                ))}
-              </motion.div>
+            <div className="relative flex-1 w-full overflow-hidden px-6 sm:px-8 md:px-10 bg-white">
+              {/* Fade overlays (wider & fully opaque near edge to mask any seam) */}
+              <div
+                className="absolute left-0 top-0 bottom-0 z-20 pointer-events-none"
+                style={{ width: '5.5rem', background: 'linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 40%, rgba(255,255,255,0) 100%)' }}
+              />
+              <div
+                className="absolute right-0 top-0 bottom-0 z-20 pointer-events-none"
+                style={{ width: '5.5rem', background: 'linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 40%, rgba(255,255,255,0) 100%)' }}
+              />
+
+              {/* Scrolling container (measured & animated for seamless loop) */}
+              <LogoCarousel />
             </div>
           </div>
         </div>
       </section>
     </div>
+  );
+};
+
+
+// LogoCarousel - measures the width of a single set and animates between it and a duplicate for a seamless loop
+const LogoCarousel: React.FC = () => {
+  const controls = useAnimation();
+  const carouselRef = useRef<HTMLDivElement | null>(null);
+  const singleSetRef = useRef<HTMLDivElement | null>(null);
+  const [singleWidth, setSingleWidth] = useState<number>(0);
+
+  useEffect(() => {
+    const el = carouselRef.current;
+    const singleEl = singleSetRef.current;
+    if (!el || !singleEl) return;
+
+    let canceled = false;
+
+    const update = () => {
+      if (canceled) return;
+      // Measure the width of the original set explicitly to avoid rounding issues
+      const single = Math.round(singleEl.getBoundingClientRect().width);
+      if (!single || !isFinite(single)) return;
+      setSingleWidth(single);
+
+      // set duration proportional to width for consistent speed
+      const duration = Math.max(12, Math.min(40, single / 40));
+
+      // animate from 0 to -single, then loop seamlessly
+      controls.start({
+        x: [0, -single],
+        transition: { x: { repeat: Infinity, repeatType: 'loop', duration, ease: 'linear' } },
+      });
+    };
+
+    // If images haven't loaded yet, listen for load events and then measure
+    const imgs = Array.from(el.querySelectorAll('img')) as HTMLImageElement[];
+    let pending = imgs.length;
+
+    const onImgLoad = () => {
+      pending -= 1;
+      if (pending <= 0) update();
+    };
+
+    if (pending === 0) {
+      // Nothing to wait for
+      const id = window.setTimeout(update, 30);
+      window.addEventListener('resize', update);
+      return () => { window.clearTimeout(id); window.removeEventListener('resize', update); controls.stop(); };
+    }
+
+    imgs.forEach((img) => {
+      if (img.complete) {
+        pending -= 1;
+      } else {
+        img.addEventListener('load', onImgLoad);
+        img.addEventListener('error', onImgLoad);
+      }
+    });
+
+    // If all were already complete
+    if (pending <= 0) update();
+
+    const resizeHandler = () => update();
+    window.addEventListener('resize', resizeHandler);
+
+    return () => {
+      canceled = true;
+      imgs.forEach((img) => {
+        img.removeEventListener('load', onImgLoad);
+        img.removeEventListener('error', onImgLoad);
+      });
+      window.removeEventListener('resize', resizeHandler);
+      controls.stop();
+    };
+  }, [controls]);
+
+  const brands = [
+    { name: 'Medium', logo: logoMedium },
+    { name: 'Vocal', logo: logoVocal },
+    { name: 'LinkedIn', logo: logoLinkedIn },
+    { name: 'Forbes', logo: logoForbes },
+    { name: 'VICE', logo: logoVice },
+    { name: 'GQ', logo: logoGQ },
+    { name: 'Outlook', logo: logoOutlook },
+  ];
+
+  const renderSet = (isFirst = false) => (
+    <div ref={isFirst ? (singleSetRef as any) : undefined} className={`flex items-center md:space-x-10 space-x-4 ${isFirst ? 'pr-12 md:pr-20' : ''}`}>
+      {brands.map((brand, index) => (
+        <div key={brand.name} className="flex items-center justify-center whitespace-nowrap flex-none px-2 md:px-3 min-w-[120px] md:min-w-[140px]">
+          <div className="bg-white rounded-md p-1 md:p-2">
+            <img src={brand.logo} alt={brand.name} className="h-8 md:h-10 max-w-[100px] md:max-w-[140px] w-auto object-contain grayscale opacity-60" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  return (
+    <motion.div ref={carouselRef as any} className="flex items-center py-2" animate={controls}>
+      {renderSet(true)}
+      {renderSet(false)}
+    </motion.div>
   );
 };
 
