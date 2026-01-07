@@ -88,7 +88,7 @@ const HowWeWork: React.FC = () => {
       </section>
 
       {/* Process Steps Section with Center Roadmap Line */}
-      <section className="py-20 px-6 md:px-12 lg:px-20 bg-white overflow-hidden">
+      <section className="py-20 px-6 md:px-12 lg:px-20 bg-background-light overflow-hidden">
         <div className="max-w-7xl mx-auto relative">
           {/* Center Vertical Line */}
           <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-pink-200 via-pink-400 to-pink-200 transform -translate-x-1/2 hidden md:block"></div>
@@ -294,7 +294,7 @@ const HowWeWork: React.FC = () => {
                 </div>
 
                 {/* connector circle removed to match design */}
-                <div className="w-full md:w-[60%] text-left">
+                <div className="w-full md:w-[60%] text-center md:text-left md:h-full md:flex md:flex-col md:justify-center md:py-0 items-center md:items-start relative z-20">
                   <h3 className="text-3xl md:text-6xl font-normal text-black leading-tight tracking-tight w-full break-words">
                     <span className="block">What Are You</span>
                     <span className="block">Waiting For?</span>
@@ -321,11 +321,11 @@ const HowWeWork: React.FC = () => {
                   </a>
                 </div>
 
-                <div className="w-full md:w-[40%] md:flex md:items-center md:justify-center relative">
+                <div className="absolute inset-0 flex items-center justify-center md:relative md:w-[40%] md:flex md:items-center md:justify-center pointer-events-none">
                   <motion.img
                     src={phonesImg}
                     alt="App on phones"
-                    className="w-[100%] md:w-[130%] drop-shadow-2xl relative z-10 transform md:translate-x-6"
+                    className="max-w-[70%] md:w-[130%] drop-shadow-2xl relative z-10 transform md:translate-x-6 translate-y-4 md:translate-y-0 blur-sm md:blur-0 opacity-80"
                     animate={{ y: [ -18, 0, -18 ] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                   />
