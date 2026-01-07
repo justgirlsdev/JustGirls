@@ -74,7 +74,7 @@ const Mastery: React.FC = () => {
               zIndex: 0,
               width: 'auto',
               height: '30%',
-              top: '59%',
+              top: '51%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
               opacity: 0.4
