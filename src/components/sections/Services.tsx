@@ -263,6 +263,7 @@ const Services: React.FC = () => {
                     className="btn-primary text-base lg:text-sm px-8 py-3 lg:px-6 lg:py-2 relative z-30"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={() => import('../../lib/onboarding').then(m => m.openOnboarding())}
                   >
                     GET STARTED
                   </motion.button>

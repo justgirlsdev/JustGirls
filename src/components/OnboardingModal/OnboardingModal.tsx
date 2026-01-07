@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 
 const steps = [
@@ -80,6 +80,13 @@ const OnboardingModal: React.FC = () => {
 
   const progress = ((stepIndex + 1) / steps.length) * 100;
 
+  // animate progress smoothly using motion values + spring
+  const progressMV = useMotionValue(progress);
+  const smoothProgress = useSpring(progressMV, { stiffness: 120, damping: 18 });
+  useEffect(() => { progressMV.set(progress); }, [progress]);
+  const animatedWidth = useTransform(smoothProgress, v => `${v}%`);
+  const animatedLeft = useTransform(smoothProgress, v => `${Math.max(2, Math.min(98, v))}%`);
+
   const step = steps[stepIndex];
   if (!step) return null;
 
@@ -98,15 +105,21 @@ const OnboardingModal: React.FC = () => {
     <AnimatePresence>
       {open && (
         <motion.div className="fixed inset-0 z-[99999] isolate flex items-center justify-center bg-black/60" style={{ zIndex: 99999 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          <motion.div className="relative w-full h-full max-w-6xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden max-h-[85vh]" style={{ zIndex: 100000 }} initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} transition={{ type: 'spring', stiffness: 90 }}>
+          <motion.div className="relative w-full h-full max-w-[calc(100vw-2rem)] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden max-h-[95vh] md:max-h-[85vh]" style={{ zIndex: 100000 }} initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} transition={{ type: 'spring', stiffness: 90 }}>
 
-            {/* Progress bar at very top */}
-            <div className="w-full h-1 bg-pink-50">
-              <motion.div className="h-full bg-primary" style={{ width: `${progress}%` }} layout transition={{ duration: 0.3 }} />
+            {/* Custom progress bar (slimmer) */}
+            <div className="w-full pt-6 pb-2 px-4 sm:pt-8 sm:pb-3 sm:px-6 md:pt-10 md:px-12 lg:pt-12 lg:px-16">
+              <div className="relative w-full h-1.5 md:h-2 bg-pink-50 rounded-full overflow-hidden">
+                <motion.div
+                  className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-pink-200 to-pink-300"
+                  style={{ width: animatedWidth, borderTopRightRadius: 9999, borderBottomRightRadius: 9999 }}
+                  transition={{ duration: 0.35 }}
+                />
+              </div>
             </div>
 
-            <div className="p-6 md:p-20 h-full flex flex-col">
-              <div className="flex justify-between items-start">
+<div className="pt-4 pb-6 md:pt-6 md:pb-12 lg:pt-8 lg:pb-16 px-4 sm:px-6 md:px-12 lg:px-16 h-full flex flex-col">
+              <div className="flex justify-between items-center mb-8 md:mb-10">
                 <div className="flex items-center gap-4">
                   <img src="/favicon.png" alt="Logo" className="w-12 h-12" />
                   <h3 className="text-xl md:text-2xl font-bold">Quick Questions</h3>
@@ -125,6 +138,9 @@ const OnboardingModal: React.FC = () => {
                     <div>
                       {step.type === 'select' && (
                         <div className="relative" ref={dropdownRef}>
+                          {/* hide scrollbars but allow native scrolling */}
+                          <style>{`.no-scrollbar{ -ms-overflow-style: none; scrollbar-width: none; } .no-scrollbar::-webkit-scrollbar{ display: none; }`}</style>
+
                           <div className="mb-4">
                             <input
                               readOnly
@@ -136,7 +152,11 @@ const OnboardingModal: React.FC = () => {
                           </div>
 
                           {dropdownOpen && (
-                            <div ref={optionsRef} className="absolute left-0 right-0 mt-2 bg-white border border-pink-50 rounded-lg shadow-lg max-h-60 overflow-auto overscroll-contain z-50" onWheel={(e) => e.stopPropagation()} onTouchStart={(e) => e.stopPropagation()} onTouchMove={(e) => e.stopPropagation()}>
+                            <div
+                              ref={optionsRef}
+                              className="no-scrollbar md:absolute left-0 right-0 mt-2 bg-white border border-pink-50 rounded-lg shadow-lg max-h-[38vh] md:max-h-60 overflow-auto overscroll-contain z-50"
+                              style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}
+                            >
                               {steps[stepIndex].options?.map((opt: string) => (
                                 <button
                                   key={opt}

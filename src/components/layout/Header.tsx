@@ -123,9 +123,9 @@ const Header: React.FC = () => {
                 </Link>
               ))}
               <div className="pt-2">
-                <Link to="/apply" onClick={() => setIsMobileMenuOpen(false)}>
+                <a href="#apply" onClick={(e) => { e.preventDefault(); setIsMobileMenuOpen(false); import('../../lib/onboarding').then(m => m.openOnboarding()); }}>
                   <button className="btn-primary w-full">GET STARTED</button>
-                </Link>
+                </a>
               </div>
             </motion.div>
           )}

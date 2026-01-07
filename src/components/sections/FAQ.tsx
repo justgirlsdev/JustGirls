@@ -45,9 +45,24 @@ const FAQ: React.FC = () => {
     },
     {
       question: 'When can I expect results?',
-      answer: 'Most creators see initial improvements within 2-4 weeks. Significant growth (2x+ earnings) typically happens within 3-6 months as our strategies compound. Results vary based on starting point and content quality.',
+      answer: 'Most creators notice a huge difference in the first week. New creators often experience the biggest upside — in many cases up to 10x earnings growth as we build strong foundations from the start.\n\nIf you\u2019ve already been creating for several months or years, you can typically expect 2x-5x growth within 3-6 months as our strategies compound. Results vary based on your starting point, consistency, and content quality.',
     },
   ];
+
+  
+
+
+
+  // Animation variants for entrance and items
+  const containerVariants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.08, delayChildren: 0.12 } },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 18, scale: 0.995 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.48, ease: "easeOut" } },
+  };
 
   return (
     <section ref={ref} className="section-container bg-gradient-to-b from-white to-background-light">
@@ -66,14 +81,19 @@ const FAQ: React.FC = () => {
       </motion.div>
 
       <div className="max-w-4xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+        >
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.05 }}
-              className="bg-white rounded-2xl border-2 border-primary/10 overflow-hidden hover:border-primary/30 transition-colors duration-300 h-auto"
+              variants={itemVariants}
+              whileHover={{ y: -4 }}
+              whileTap={{ scale: 0.997 }}
+              className="bg-white rounded-2xl border-2 border-primary/10 overflow-hidden hover:border-primary/30 transition-colors duration-300 h-auto will-change-transform"
             >
               <button
                 onClick={() => toggleFAQ(index)}
@@ -84,7 +104,7 @@ const FAQ: React.FC = () => {
                 </span>
                 <motion.div
                   animate={{ rotate: openIndices.includes(index) ? 45 : 0 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.22, ease: 'easeInOut' }}
                   className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center"
                 >
                   <svg
@@ -103,24 +123,24 @@ const FAQ: React.FC = () => {
                 </motion.div>
               </button>
 
-              <AnimatePresence>
+              <AnimatePresence initial={false}>
                 {openIndices.includes(index) && (
                   <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    initial={{ height: 0, opacity: 0, y: -6 }}
+                    animate={{ height: 'auto', opacity: 1, y: 0 }}
+                    exit={{ height: 0, opacity: 0, y: -6 }}
+                    transition={{ duration: 0.32, ease: 'easeOut' }}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 pb-6 text-text-light leading-relaxed">
+                    <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }} transition={{ duration: 0.28 }} className="px-6 pb-6 text-text-light leading-relaxed whitespace-pre-line">
                       {faq.answer}
-                    </div>
+                    </motion.div>
                   </motion.div>
                 )}
               </AnimatePresence>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

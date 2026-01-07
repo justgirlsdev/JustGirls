@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, useSpring, useReducedMotion, AnimatePresence } from 'framer-motion';
 import arrowPath from '../../assets/hero-section/arrow-path.svg';
 import modelImage from '../../assets/hero-section/Model Image - HS.png';
@@ -159,7 +158,7 @@ const Hero: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
               >
-                <Link to="/apply">
+                <a href="#apply" onClick={(e) => { e.preventDefault(); import('../../lib/onboarding').then(m => m.openOnboarding()); }}>
                   <motion.button
                     className="btn-primary text-lg px-12 py-4"
                     whileHover={{ scale: 1.05 }}
@@ -167,7 +166,7 @@ const Hero: React.FC = () => {
                   >
                     GET STARTED
                   </motion.button>
-                </Link>
+                </a>
               </motion.div>
             </motion.div>
 
