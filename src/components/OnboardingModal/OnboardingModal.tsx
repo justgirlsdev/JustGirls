@@ -85,7 +85,6 @@ const OnboardingModal: React.FC = () => {
   const smoothProgress = useSpring(progressMV, { stiffness: 120, damping: 18 });
   useEffect(() => { progressMV.set(progress); }, [progress]);
   const animatedWidth = useTransform(smoothProgress, v => `${v}%`);
-  const animatedLeft = useTransform(smoothProgress, v => `${Math.max(2, Math.min(98, v))}%`);
 
   const step = steps[stepIndex];
   if (!step) return null;

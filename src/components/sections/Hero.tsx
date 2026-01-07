@@ -343,7 +343,7 @@ const LogoCarousel: React.FC = () => {
   const controls = useAnimation();
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const singleSetRef = useRef<HTMLDivElement | null>(null);
-  const [singleWidth, setSingleWidth] = useState<number>(0);
+
 
   useEffect(() => {
     const el = carouselRef.current;
@@ -357,7 +357,6 @@ const LogoCarousel: React.FC = () => {
       // Measure the width of the original set explicitly to avoid rounding issues
       const single = Math.round(singleEl.getBoundingClientRect().width);
       if (!single || !isFinite(single)) return;
-      setSingleWidth(single);
 
       // set duration proportional to width for consistent speed
       const duration = Math.max(12, Math.min(40, single / 40));
@@ -423,7 +422,7 @@ const LogoCarousel: React.FC = () => {
 
   const renderSet = (isFirst = false) => (
     <div ref={isFirst ? (singleSetRef as any) : undefined} className={`flex items-center md:space-x-10 space-x-4 ${isFirst ? 'pr-12 md:pr-20' : ''}`}>
-      {brands.map((brand, index) => (
+      {brands.map((brand, _index) => (
         <div key={brand.name} className="flex items-center justify-center whitespace-nowrap flex-none px-2 md:px-3 min-w-[120px] md:min-w-[140px]">
           <div className="bg-white rounded-md p-1 md:p-2">
             <img src={brand.logo} alt={brand.name} className="h-8 md:h-10 max-w-[100px] md:max-w-[140px] w-auto object-contain grayscale opacity-60" />
