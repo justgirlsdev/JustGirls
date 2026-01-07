@@ -150,7 +150,7 @@ const Hero: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
-                Are you posting, chatting, and planning all by yourself? We scale your income, the spend in DMs, and build your brand — so you never burn out again.
+                Founded by a successful creator — not a traditional agency. We handle the strategy, DMs, and growth — scaling your income and freeing up your time so you can create more, earn more, and never burn out again.
               </motion.p>
 
               <motion.div

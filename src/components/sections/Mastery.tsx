@@ -143,9 +143,9 @@ const Mastery: React.FC = () => {
                   <PayoutCard />
                 </motion.div>
                 
-                {/* Successful payout card - smaller, layered on top right */}
+                {/* Successful payout card - smaller, layered on top right on desktop; centered below with slight overlap on mobile */}
                 <motion.div 
-                  className="absolute top-6 md:top-8 -right-20 md:-right-24 z-10"
+                  className="z-10 mt-[-28px] md:mt-[-32px] mx-auto w-max xl:absolute xl:top-6 xl:-right-24"
                   initial={{ opacity: 0, scale: 0.8, y: -10 }}
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.3 }}

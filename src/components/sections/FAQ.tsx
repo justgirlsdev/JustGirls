@@ -29,7 +29,7 @@ const FAQ: React.FC = () => {
     },
     {
       question: 'How can JustGirls benefit me?',
-      answer: 'We handle the business side – marketing, fan engagement, content strategy, and revenue optimization – so you can focus purely on creating. Most creators see 2-5x income growth within the first 6 months while working fewer hours.',
+      answer: 'We handle the business side — marketing, fan engagement, content strategy, and revenue optimization — so you can focus purely on creating. Most creators see 2–5x income growth within the first month, while working fewer hours.',
     },
     {
       question: 'Who owns my content?',
