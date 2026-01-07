@@ -27,6 +27,15 @@
     box-shadow: 0 6px 18px rgba(236,72,153,0.12);
   }
 
+  /* CTA gradient button with pulsing/glow hover effect */
+  .btn-cta {
+    @apply bg-gradient-to-r from-pink-600 to-pink-500 text-white text-lg font-bold px-8 py-3 rounded-full shadow-soft relative transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center;
+  }
+  .btn-cta:hover {
+    animation: pulse-shadow-explode 2s ease-out infinite;
+    box-shadow: 0 10px 30px rgba(236,72,153,0.18);
+  }
+
   .btn-secondary {
     @apply bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold px-8 py-3 rounded-full transition-all duration-300;
   }
