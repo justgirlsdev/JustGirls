@@ -303,22 +303,18 @@ const HowWeWork: React.FC = () => {
                     Join our elite creator network! Boost your followers, multiply revenue, and craft a priceless brand.
                   </p>
                   {/* small screens: inline button */}
-                  <a href="/contact" className="mt-6 inline-block md:hidden">
-                    <motion.button className="btn-cta relative" whileTap={{ scale: 0.98 }} aria-label="Get started">
-                      <span className="absolute inset-0 rounded-full border-2 border-white pointer-events-none" />
-                      GET STARTED
-                    </motion.button>
-                  </a>
+                  <motion.button type="button" onClick={() => window.dispatchEvent(new Event('openOnboarding'))} className="btn-cta relative mt-8 inline-block md:hidden" whileTap={{ scale: 0.98 }} aria-label="Open onboarding">
+                    <span className="absolute inset-0 rounded-full border-2 border-white pointer-events-none" />
+                    GET STARTED
+                  </motion.button>
                 </div>
 
                 {/* md+ positioned button (bottom-left of card) */}
                 <div className="hidden md:block absolute left-6 md:left-12 bottom-12 md:bottom-12 z-30">
-                  <a href="/contact">
-                    <motion.button className="btn-cta relative" whileTap={{ scale: 0.98 }} aria-label="Get started">
-                      <span className="absolute inset-0 rounded-full border-2 border-white pointer-events-none" />
-                      GET STARTED
-                    </motion.button>
-                  </a>
+                  <motion.button type="button" onClick={() => window.dispatchEvent(new Event('openOnboarding'))} className="btn-cta relative" whileTap={{ scale: 0.98 }} aria-label="Open onboarding">
+                    <span className="absolute inset-0 rounded-full border-2 border-white pointer-events-none" />
+                    GET STARTED
+                  </motion.button>
                 </div>
 
                 <div className="absolute inset-0 flex items-center justify-center md:relative md:w-[40%] md:flex md:items-center md:justify-center pointer-events-none">
