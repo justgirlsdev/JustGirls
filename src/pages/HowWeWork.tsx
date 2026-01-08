@@ -166,12 +166,15 @@ const HowWeWork: React.FC = () => {
               variants={fadeInUp}
               className="flex flex-wrap items-center justify-center gap-4 pt-4"
             >
-              <a 
-                href="/contact"
+              <motion.button
+                type="button"
+                onClick={() => import('../lib/onboarding').then(m => m.openOnboarding())}
                 className="inline-flex items-center gap-2 px-8 py-4 bg-pink-600 text-white rounded-full font-semibold hover:bg-pink-700 transition-colors"
+                whileTap={{ scale: 0.98 }}
+                aria-label="Open onboarding"
               >
                 GET STARTED
-              </a>
+              </motion.button>
             </motion.div>
           </motion.div>
         </div>
