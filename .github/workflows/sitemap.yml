@@ -1,0 +1,43 @@
+name: Generate Sitemap
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  generate-sitemap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate sitemap
+        run: npm run generate-sitemap
+
+      - name: Commit sitemap (if changed)
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: 'chore(ci): update sitemap'
+          add: 'public/sitemap.xml'
+          author_name: 'github-actions'
+          author_email: 'actions@github.com'
+          committer_name: 'github-actions'
+          committer_email: 'actions@github.com'
+          signoff: false
+
+      - name: Upload sitemap artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sitemap
+          path: public/sitemap.xml

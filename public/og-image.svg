@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0%" stop-color="#FFE6F0"/>
+      <stop offset="100%" stop-color="#FFD3E6"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g)" />
+  <g transform="translate(80,60)">
+    <image href="/favicon.png" x="0" y="0" width="160" height="160" />
+    <text x="200" y="90" font-family="Inter, Helvetica, Arial, sans-serif" font-size="56" fill="#111827" font-weight="700">JustGirls</text>
+    <text x="200" y="140" font-family="Inter, Helvetica, Arial, sans-serif" font-size="28" fill="#d63384">Premier OnlyFans Creator Management</text>
+    <text x="200" y="180" font-family="Inter, Helvetica, Arial, sans-serif" font-size="20" fill="#374151">We scale your income and build your brand — join our network.</text>
+  </g>
+</svg>
