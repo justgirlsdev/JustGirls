@@ -1,53 +1,55 @@
 import React, { useState, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 
+export interface FAQItem { question: string; answer: string }
+
+export const FAQ_DATA: FAQItem[] = [
+  
+  {
+    question: 'What sets JustGirls Management apart from other OnlyFans agencies?',
+    answer: 'We provide a full-service, done-for-you system with U.S.-based chat teams, custom marketing strategies, and dedicated account management. Unlike other agencies, we focus on sustainable growth and creator well-being, not just quick revenue spikes.',
+  },
+  {
+    question: 'What costs are involved?',
+    answer: 'We operate on a performance-based model, typically taking a percentage of your earnings. There are no upfront fees – we only succeed when you succeed. Exact terms are discussed during consultation based on your current earnings and goals.',
+  },
+  {
+    question: 'Is a contract necessary?',
+    answer: 'Yes, we work with standard service agreements to protect both parties. Contracts are flexible and can be tailored to your needs. We believe in transparency and will walk you through every detail before signing.',
+  },
+  {
+    question: 'How can JustGirls benefit me?',
+    answer: 'We handle the business side — marketing, fan engagement, content strategy, and revenue optimization — so you can focus purely on creating. Most creators see 2–5x income growth within the first month, while working fewer hours.',
+  },
+  {
+    question: 'Who owns my content?',
+    answer: 'You own 100% of your content, always. We never claim ownership or rights to anything you create. We simply help you distribute, market, and monetize it more effectively.',
+  },
+  {
+    question: 'How can I get started?',
+    answer: 'Click "Get Started" to fill out our application form. We\'ll review your profile and schedule a consultation call to discuss your goals, current performance, and how we can help you scale.',
+  },
+  {
+    question: 'How many creators are you working with?',
+    answer: 'We work with a select group of creators to ensure personalized attention and quality service. We limit onboarding to maintain our high standards and avoid spreading our team too thin.',
+  },
+  {
+    question: 'When can I expect results?',
+    answer: 'Most creators notice a huge difference in the first week. New creators often experience the biggest upside — in many cases up to 10x earnings growth as we build strong foundations from the start.\n\nIf you\u2019ve already been creating for several months or years, you can typically expect 2x-5x growth within 3-6 months as our strategies compound. Results vary based on your starting point, consistency, and content quality.',
+  },
+];
+
+const faqs = FAQ_DATA;
+
 const FAQ: React.FC = () => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const [openIndices, setOpenIndices] = useState<number[]>([]);
 
   const toggleFAQ = (index: number) => {
-    if (openIndices.includes(index)) {
-      setOpenIndices(openIndices.filter(i => i !== index));
-    } else {
-      setOpenIndices([...openIndices, index]);
-    }
+    if (openIndices.includes(index)) setOpenIndices(openIndices.filter(i => i !== index));
+    else setOpenIndices([...openIndices, index]);
   };
-
-  const faqs = [
-    {
-      question: 'What sets JustGirls Management apart from other OnlyFans agencies?',
-      answer: 'We provide a full-service, done-for-you system with U.S.-based chat teams, custom marketing strategies, and dedicated account management. Unlike other agencies, we focus on sustainable growth and creator well-being, not just quick revenue spikes.',
-    },
-    {
-      question: 'What costs are involved?',
-      answer: 'We operate on a performance-based model, typically taking a percentage of your earnings. There are no upfront fees – we only succeed when you succeed. Exact terms are discussed during consultation based on your current earnings and goals.',
-    },
-    {
-      question: 'Is a contract necessary?',
-      answer: 'Yes, we work with standard service agreements to protect both parties. Contracts are flexible and can be tailored to your needs. We believe in transparency and will walk you through every detail before signing.',
-    },
-    {
-      question: 'How can JustGirls benefit me?',
-      answer: 'We handle the business side — marketing, fan engagement, content strategy, and revenue optimization — so you can focus purely on creating. Most creators see 2–5x income growth within the first month, while working fewer hours.',
-    },
-    {
-      question: 'Who owns my content?',
-      answer: 'You own 100% of your content, always. We never claim ownership or rights to anything you create. We simply help you distribute, market, and monetize it more effectively.',
-    },
-    {
-      question: 'How can I get started?',
-      answer: 'Click "Get Started" to fill out our application form. We\'ll review your profile and schedule a consultation call to discuss your goals, current performance, and how we can help you scale.',
-    },
-    {
-      question: 'How many creators are you working with?',
-      answer: 'We work with a select group of creators to ensure personalized attention and quality service. We limit onboarding to maintain our high standards and avoid spreading our team too thin.',
-    },
-    {
-      question: 'When can I expect results?',
-      answer: 'Most creators notice a huge difference in the first week. New creators often experience the biggest upside — in many cases up to 10x earnings growth as we build strong foundations from the start.\n\nIf you\u2019ve already been creating for several months or years, you can typically expect 2x-5x growth within 3-6 months as our strategies compound. Results vary based on your starting point, consistency, and content quality.',
-    },
-  ];
 
   
 
