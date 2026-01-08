@@ -60,6 +60,11 @@ const HowWeWork: React.FC = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
   };
 
+  const imageVariant = {
+    hidden: { y: 36, opacity: 0, scale: 0.94, rotate: -4 },
+    visible: { y: 0, opacity: 1, scale: 1, rotate: 0, transition: { type: 'spring', stiffness: 220, damping: 20, mass: 0.9 } }
+  };
+
   // Progress bar & node tracking for roadmap
   const containerRef = useRef<HTMLDivElement | null>(null);
   const stepRefs = useRef<Array<HTMLDivElement | null>>([]);
@@ -186,89 +191,256 @@ const HowWeWork: React.FC = () => {
 
           {/* Step 1: Custom Roadmap */}
           <div ref={el => stepRefs.current[0] = el} className="relative mb-32">
-            <motion.div initial="hidden" variants={stepVariants} animate={active >= 1 ? 'visible' : 'hidden'} className="relative z-20">
-              <div className="bg-white rounded-2xl shadow-xl ring-1 ring-black/6 p-6 md:p-12 overflow-visible">
-                <div className="grid md:grid-cols-2 gap-12 items-center">
-                  {/* Left Content */}
-                  <motion.div variants={fadeInLeft} className="text-center md:text-left space-y-6 md:pr-16 pt-8 md:pt-10 relative">
-                    <motion.div initial={{ y: -6, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.45 }} className="inline-flex items-center mb-4">
-                      <div className="relative">
-                        <div className="absolute inset-0 bg-pink-400 rounded-full blur-xl opacity-60 scale-125" />
-                        <span className="relative z-10 w-10 h-10 md:w-12 md:h-12 bg-pink-600 text-white rounded-full flex items-center justify-center font-semibold md:font-bold text-sm md:text-base shadow-lg border-4 border-white">1</span>
-                      </div>
-                    </motion.div>
-                    <h2 className="text-4xl md:text-5xl font-bold">Custom Roadmap</h2>
-                    <p className="text-lg text-gray-700 leading-relaxed">Embracing your vision is our forte at Sakura Management. We align with your content boundaries, recognizing that the right fit of individuality is what propels an account to greatness and helps build up a brand for long-term growth and success.</p>
-                  </motion.div>
+            <motion.div
+              initial="hidden"
+              variants={stepVariants}
+              animate={active >= 1 ? 'visible' : 'hidden'}
+              className="relative"
+            >
+            {/* Desktop layout (hidden on mobile) */}
+            <div className="hidden md:grid md:grid-cols-2 gap-12 items-center">
+              {/* Left Content */}
+              <motion.div variants={fadeInLeft} className="text-center md:text-left space-y-6 md:pr-16 pt-8 md:pt-10 relative">
+                <motion.div
+                  initial={{ y: -6, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.45 }}
+                  className="inline-flex items-center mb-4"
+                >
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-pink-400 rounded-full blur-xl opacity-60 scale-125" />
+                    <span className="relative z-10 w-10 h-10 md:w-12 md:h-12 bg-pink-600 text-white rounded-full flex items-center justify-center font-semibold md:font-bold text-sm md:text-base shadow-lg border-4 border-white">1</span>
+                  </div>
+                </motion.div>
+                <h2 className="text-4xl md:text-5xl font-bold">Custom Roadmap</h2>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  Embracing your vision is our forte at Sakura Management. 
+                  We align with your content boundaries, recognizing that 
+                  the right fit of individuality is what propels an account to 
+                  greatness and helps build up a brand for long-term 
+                  growth and success.
+                </p>
+              </motion.div>
+              
+              {/* Right Image */}
+              <motion.div variants={fadeInRight} className="relative md:pl-16">
+                <motion.div 
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="relative"
+                >
+                  <div className="absolute inset-0 bg-pink-300 rounded-full blur-3xl opacity-30 scale-150"></div>
+                  <motion.img 
+                    src={roadmapImg1} 
+                    alt="Custom Roadmap Form" 
+                    className="relative z-10 w-full max-w-md mx-auto md:mx-0 drop-shadow-2xl"
+                    initial={{ scale: 0.92, opacity: 0, y: 18, rotate: -3 }}
+                    whileInView={{ scale: 1, opacity: 1, y: 0, rotate: 0 }}
+                    viewport={{ once: true, amount: 0.6 }}
+                    transition={{ type: 'spring', stiffness: 140, damping: 18, delay: 0.12 }}
+                  />
+                </motion.div>
+              </motion.div>
+            </div>
 
-                  {/* Right Image */}
-                  <motion.div variants={fadeInRight} className="relative md:pl-16">
-                    <motion.div initial={{ scale: 0.8, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="relative">
-                      <div className="absolute inset-0 bg-pink-300 rounded-full blur-3xl opacity-30 scale-150" />
-                      <img src={roadmapImg1} alt="Custom Roadmap Form" className="relative z-10 w-full max-w-md mx-auto md:mx-0 drop-shadow-2xl" />
-                    </motion.div>
-                  </motion.div>
-                </div>
+            {/* Mobile card */}
+            <div className="md:hidden bg-white rounded-2xl shadow-soft-lg p-6 mb-6 mx-4 relative overflow-hidden">
+              {/* badge (styled like desktop) */}
+              <div className="flex justify-center mb-4">
+                <motion.div initial={{ scale: 0.92, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ type: 'spring', stiffness: 220, damping: 18 }} className="relative">
+                  <div className="absolute inset-0 bg-pink-300 rounded-full blur-xl opacity-30 scale-125" />
+                  <span className="relative z-10 w-10 h-10 md:w-12 md:h-12 bg-pink-600 text-white rounded-full flex items-center justify-center font-semibold md:font-bold text-sm md:text-base shadow-lg border-4 border-white">1</span>
+                </motion.div>
               </div>
+
+              <h2 className="text-2xl font-bold mb-2 text-center">Custom Roadmap</h2>
+              <p className="text-base text-gray-700 leading-relaxed text-center">
+                Embracing your vision is our forte at Sakura Management. We align with your content boundaries and craft a personalized roadmap.
+              </p>
+
+              {/* subtle background accent for image */}
+              <motion.div className="absolute -z-10 left-1/2 transform -translate-x-1/2 w-32 h-32 rounded-full bg-pink-300 opacity-20 blur-2xl" initial={{ scale: 0.88, opacity: 0 }} whileInView={{ scale: 1.06, opacity: 1 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: 0.6 }} />
+
+              <motion.img src={roadmapImg1} alt="Custom Roadmap" className="w-3/4 mx-auto mt-6" variants={imageVariant} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.6 }} />
+            </div>
+            
+            {/* Header Badge (above content) */}
+
             </motion.div>
           </div>
 
           {/* Step 2: Masterwork Management */}
           <div ref={el => stepRefs.current[1] = el} className="relative mb-32">
-            <motion.div initial="hidden" variants={stepVariants} animate={active >= 2 ? 'visible' : 'hidden'} className="relative z-20">
-              <div className="bg-white rounded-2xl shadow-xl ring-1 ring-black/6 p-6 md:p-12 overflow-visible">
-                <div className="grid md:grid-cols-2 gap-12 items-center">
-                  {/* Left Image */}
-                  <motion.div variants={fadeInLeft} className="relative md:pr-16 md:order-1 order-2">
-                    <motion.div initial={{ scale: 0.8, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="relative">
-                      <div className="absolute inset-0 bg-pink-300 rounded-full blur-3xl opacity-30 scale-150" />
-                      <img src={roadmapImg2} alt="Masterwork Management Dashboard" className="relative z-10 w-full max-w-md mx-auto md:ml-auto md:mr-0 drop-shadow-2xl" />
-                    </motion.div>
-                  </motion.div>
+            <motion.div
+              initial="hidden"
+              variants={stepVariants}
+              animate={active >= 2 ? 'visible' : 'hidden'}
+              className="relative"
+            >
+            {/* Desktop layout (hidden on mobile) */}
+            <div className="hidden md:grid md:grid-cols-2 gap-12 items-center">
+              {/* Left Image */}
+              <motion.div variants={fadeInLeft} className="relative md:pr-16 md:order-1 order-2">
+                <motion.div 
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="relative"
+                >
+                  <div className="absolute inset-0 bg-pink-300 rounded-full blur-3xl opacity-30 scale-150"></div>
+                  <motion.img 
+                    src={roadmapImg2} 
+                    alt="Masterwork Management Dashboard" 
+                    className="relative z-10 w-full max-w-md mx-auto md:ml-auto md:mr-0 drop-shadow-2xl"
+                    initial={{ scale: 0.92, opacity: 0, y: 18, rotate: -3 }}
+                    whileInView={{ scale: 1, opacity: 1, y: 0, rotate: 0 }}
+                    viewport={{ once: true, amount: 0.6 }}
+                    transition={{ type: 'spring', stiffness: 140, damping: 18, delay: 0.12 }}
+                  />
+                </motion.div>
+              </motion.div>
+              
+              {/* Right Content */}
+              <motion.div variants={fadeInRight} className="text-center md:text-left space-y-6 md:pl-16 md:order-2 order-1 pt-8 md:pt-10 relative">
+                <motion.div
+                  initial={{ y: -6, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.45 }}
+                  className="inline-flex items-center mb-4"
+                >
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-pink-400 rounded-full blur-xl opacity-60 scale-125" />
+                    <span className="relative z-10 w-10 h-10 md:w-12 md:h-12 bg-pink-600 text-white rounded-full flex items-center justify-center font-semibold md:font-bold text-sm md:text-base shadow-lg border-4 border-white">2</span>
+                  </div>
+                </motion.div>
+                <h2 className="text-4xl md:text-5xl font-bold">Masterwork Management</h2>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  Creators find in us a partner like no other, driven by 
+                  relentless focus. Revenue surges under our US team's 
+                  touch, emphasizing genuine fan rapport. Building 
+                  personal connections with each fan allows, in-time, to 
+                  build a loyal fan-base around your brand.
+                </p>
+              </motion.div>
+            </div>
 
-                  {/* Right Content */}
-                  <motion.div variants={fadeInRight} className="text-center md:text-left space-y-6 md:pl-16 md:order-2 order-1 pt-8 md:pt-10 relative">
-                    <motion.div initial={{ y: -6, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.45 }} className="inline-flex items-center mb-4">
-                      <div className="relative">
-                        <div className="absolute inset-0 bg-pink-400 rounded-full blur-xl opacity-60 scale-125" />
-                        <span className="relative z-10 w-10 h-10 md:w-12 md:h-12 bg-pink-600 text-white rounded-full flex items-center justify-center font-semibold md:font-bold text-sm md:text-base shadow-lg border-4 border-white">2</span>
-                      </div>
-                    </motion.div>
-                    <h2 className="text-4xl md:text-5xl font-bold">Masterwork Management</h2>
-                    <p className="text-lg text-gray-700 leading-relaxed">Creators find in us a partner like no other, driven by relentless focus. Revenue surges under our US team's touch, emphasizing genuine fan rapport. Building personal connections with each fan allows, in-time, to build a loyal fan-base around your brand.</p>
-                  </motion.div>
-                </div>
+            {/* Mobile card */}
+            <div className="md:hidden bg-white rounded-2xl shadow-soft-lg p-6 mb-6 mx-4 relative overflow-hidden">
+              {/* badge (styled like desktop) */}
+              <div className="flex justify-center mb-4">
+                <motion.div initial={{ scale: 0.92, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ type: 'spring', stiffness: 220, damping: 18 }} className="relative">
+                  <div className="absolute inset-0 bg-pink-300 rounded-full blur-xl opacity-30 scale-125" />
+                  <span className="relative z-10 w-10 h-10 md:w-12 md:h-12 bg-pink-600 text-white rounded-full flex items-center justify-center font-semibold md:font-bold text-sm md:text-base shadow-lg border-4 border-white">2</span>
+                </motion.div>
               </div>
+
+              <h2 className="text-2xl font-bold mb-2 text-center">Masterwork Management</h2>
+              <p className="text-base text-gray-700 leading-relaxed text-center">
+                Creators find in us a partner like no other. We focus on genuine fan rapport and long-term growth.
+              </p>
+
+              {/* subtle background accent for image */}
+              <motion.div className="absolute -z-10 left-1/2 transform -translate-x-1/2 w-32 h-32 rounded-full bg-pink-300 opacity-20 blur-2xl" initial={{ scale: 0.88, opacity: 0 }} whileInView={{ scale: 1.06, opacity: 1 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: 0.6 }} />
+
+              <motion.img src={roadmapImg2} alt="Masterwork" className="w-3/4 mx-auto mt-6" variants={imageVariant} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.6 }} />
+            </div>
+            
+            {/* Header Badge (above content - left) */}
+
             </motion.div>
           </div>
 
           {/* Step 3: Viral Marketing */}
           <div ref={el => stepRefs.current[2] = el} className="relative mb-20">
-            <motion.div initial="hidden" variants={stepVariants} animate={active >= 3 ? 'visible' : 'hidden'} className="relative z-20">
-              <div className="bg-white rounded-2xl shadow-xl ring-1 ring-black/6 p-6 md:p-12 overflow-visible">
-                <div className="grid md:grid-cols-2 gap-12 items-center">
-                  {/* Left Content */}
-                  <motion.div variants={fadeInLeft} className="text-center md:text-left space-y-6 md:pr-16 pt-8 md:pt-10 relative">
-                    <motion.div initial={{ y: -6, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.45 }} className="inline-flex items-center mb-4">
-                      <div className="relative">
-                        <div className="absolute inset-0 bg-pink-400 rounded-full blur-xl opacity-60 scale-125" />
-                        <span className="relative z-10 w-10 h-10 md:w-12 md:h-12 bg-pink-600 text-white rounded-full flex items-center justify-center font-semibold md:font-bold text-sm md:text-base shadow-lg border-4 border-white">3</span>
-                      </div>
-                    </motion.div>
-                    <h2 className="text-4xl md:text-5xl font-bold">Viral Marketing</h2>
-                    <p className="text-lg text-gray-700 leading-relaxed">Our agency specializes in data-driven marketing tailored to each creator's personality and goals. We harness the power of Instagram, Twitter, YouTube, and other social platforms to attract high-quality subscribers and drive substantial traffic to your OnlyFans page. With our deep knowledge of platform algorithms and content strategies, we're dedicated to elevating your brand and achieving the monthly milestones you've always envisioned. Reach out today to discover how we can help you surpass your OnlyFans revenue goals!</p>
-                  </motion.div>
+            <motion.div
+              initial="hidden"
+              variants={stepVariants}
+              animate={active >= 3 ? 'visible' : 'hidden'}
+              className="relative"
+            >
+            {/* Desktop layout (hidden on mobile) */}
+            <div className="hidden md:grid md:grid-cols-2 gap-12 items-center">
+              {/* Left Content */}
+              <motion.div variants={fadeInLeft} className="text-center md:text-left space-y-6 md:pr-16 pt-8 md:pt-10 relative">
+                <motion.div
+                  initial={{ y: -6, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.45 }}
+                  className="inline-flex items-center mb-4"
+                >
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-pink-400 rounded-full blur-xl opacity-60 scale-125" />
+                    <span className="relative z-10 w-10 h-10 md:w-12 md:h-12 bg-pink-600 text-white rounded-full flex items-center justify-center font-semibold md:font-bold text-sm md:text-base shadow-lg border-4 border-white">3</span>
+                  </div>
+                </motion.div>
+                <h2 className="text-4xl md:text-5xl font-bold">Viral Marketing</h2>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  Our agency specializes in data-driven marketing tailored 
+                  to each creator's personality and goals. We harness the 
+                  power of Instagram, Twitter, YouTube, and other social 
+                  platforms to attract high-quality subscribers and drive 
+                  substantial traffic to your OnlyFans page. With our deep 
+                  knowledge of platform algorithms and content strategies, 
+                  we're dedicated to elevating your brand and achieving the 
+                  monthly milestones you've always envisioned. Reach out 
+                  today to discover how we can help you surpass your 
+                  OnlyFans revenue goals!
+                </p>
+              </motion.div>
+              
+              {/* Right Image */}
+              <motion.div variants={fadeInRight} className="relative md:pl-16">
+                <motion.div 
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="relative"
+                >
+                  <div className="absolute inset-0 bg-pink-300 rounded-full blur-3xl opacity-30 scale-150"></div>
+                  <motion.img 
+                    src={roadmapImg3} 
+                    alt="Viral Marketing Analytics" 
+                    className="relative z-10 w-full max-w-md mx-auto md:mx-0 drop-shadow-2xl"
+                    initial={{ scale: 0.92, opacity: 0, y: 18, rotate: -3 }}
+                    whileInView={{ scale: 1, opacity: 1, y: 0, rotate: 0 }}
+                    viewport={{ once: true, amount: 0.6 }}
+                    transition={{ type: 'spring', stiffness: 140, damping: 18, delay: 0.12 }}
+                  />
+                </motion.div>
+              </motion.div>
+            </div>
 
-                  {/* Right Image */}
-                  <motion.div variants={fadeInRight} className="relative md:pl-16">
-                    <motion.div initial={{ scale: 0.8, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="relative">
-                      <div className="absolute inset-0 bg-pink-300 rounded-full blur-3xl opacity-30 scale-150" />
-                      <img src={roadmapImg3} alt="Viral Marketing Analytics" className="relative z-10 w-full max-w-md mx-auto md:mx-0 drop-shadow-2xl" />
-                    </motion.div>
-                  </motion.div>
-                </div>
+            {/* Mobile card */}
+            <div className="md:hidden bg-white rounded-2xl shadow-soft-lg p-6 mb-6 mx-4 relative overflow-hidden">
+              {/* badge (styled like desktop) */}
+              <div className="flex justify-center mb-4">
+                <motion.div initial={{ scale: 0.92, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ type: 'spring', stiffness: 220, damping: 18 }} className="relative">
+                  <div className="absolute inset-0 bg-pink-300 rounded-full blur-xl opacity-30 scale-125" />
+                  <span className="relative z-10 w-10 h-10 md:w-12 md:h-12 bg-pink-600 text-white rounded-full flex items-center justify-center font-semibold md:font-bold text-sm md:text-base shadow-lg border-4 border-white">3</span>
+                </motion.div>
               </div>
-            </motion.div>
+
+              <h2 className="text-2xl font-bold mb-2 text-center">Viral Marketing</h2>
+              <p className="text-base text-gray-700 leading-relaxed text-center">
+                We tailor data-driven marketing to your personality and goals across platforms to attract high-quality subscribers.
+              </p>
+
+              {/* subtle background accent for image */}
+              <motion.div className="absolute -z-10 left-1/2 transform -translate-x-1/2 w-32 h-32 rounded-full bg-pink-300 opacity-20 blur-2xl" initial={{ scale: 0.88, opacity: 0 }} whileInView={{ scale: 1.06, opacity: 1 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: 0.6 }} />
+
+              <motion.img src={roadmapImg3} alt="Viral Marketing" className="w-3/4 mx-auto mt-6" variants={imageVariant} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.6 }} />
+            </div>
+            
+            {/* Header Badge (above content) */}
+
+          </motion.div>
           </div>
 
           {/* CTA Section - What Are You Waiting For? */}
@@ -308,7 +480,7 @@ const HowWeWork: React.FC = () => {
                     Join our elite creator network! Boost your followers, multiply revenue, and craft a priceless brand.
                   </p>
                   {/* small screens: inline button */}
-                  <motion.button type="button" onClick={() => window.dispatchEvent(new Event('openOnboarding'))} className="btn-cta relative mt-8 inline-block md:hidden" whileTap={{ scale: 0.98 }} aria-label="Open onboarding">
+                  <motion.button type="button" onClick={() => import('../lib/onboarding').then(m => m.openOnboarding())} className="btn-cta relative mt-8 inline-block md:hidden" whileTap={{ scale: 0.98 }} aria-label="Open onboarding">
                     <span className="absolute inset-0 rounded-full border-2 border-white pointer-events-none" />
                     GET STARTED
                   </motion.button>
@@ -316,7 +488,7 @@ const HowWeWork: React.FC = () => {
 
                 {/* md+ positioned button (bottom-left of card) */}
                 <div className="hidden md:block absolute left-6 md:left-12 bottom-12 md:bottom-12 z-30">
-                  <motion.button type="button" onClick={() => window.dispatchEvent(new Event('openOnboarding'))} className="btn-cta relative" whileTap={{ scale: 0.98 }} aria-label="Open onboarding">
+                  <motion.button type="button" onClick={() => import('../lib/onboarding').then(m => m.openOnboarding())} className="btn-cta relative" whileTap={{ scale: 0.98 }} aria-label="Open onboarding">
                     <span className="absolute inset-0 rounded-full border-2 border-white pointer-events-none" />
                     GET STARTED
                   </motion.button>

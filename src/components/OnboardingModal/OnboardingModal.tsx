@@ -44,7 +44,16 @@ const OnboardingModal: React.FC = () => {
   const optionsRef = React.useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const onOpen = () => { setOpen(true); setStepIndex(0); };
+    const onOpen = () => { 
+      setOpen(true); 
+      setStepIndex(0);
+      // only attach the current path when opened from mobile
+      try {
+        if (typeof window !== 'undefined' && window.innerWidth < 768) {
+          setAnswers(prev => ({ ...prev, referrer: window.location.pathname }));
+        }
+      } catch (e) { /* ignore */ }
+    };
     const onClose = () => setOpen(false);
     window.addEventListener('openOnboarding', onOpen as EventListener);
     window.addEventListener('closeOnboarding', onClose as EventListener);
