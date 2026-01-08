@@ -9,13 +9,26 @@
       <stop offset="0%" stop-color="#ff9ccf" />
       <stop offset="100%" stop-color="#ff4da6" />
     </linearGradient>
+
+    <!-- Inlined logo defs -->
+    <linearGradient id="logoGrad" x1="0" x2="1">
+      <stop offset="0%" stop-color="#ff9ccf" />
+      <stop offset="100%" stop-color="#ff4da6" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#ff7ab1" flood-opacity="0.35" />
+    </filter>
   </defs>
 
   <rect width="100%" height="100%" fill="url(#bg)" />
 
-  <!-- Centered logo -->
-  <g transform="translate(600,240)" text-anchor="middle">
-    <image href="/assets/justgirls-logo.svg" x="-340" y="-120" width="680" height="240" preserveAspectRatio="xMidYMid meet" />
+  <!-- Centered logo (inlined to avoid external refs) -->
+  <g transform="translate(600,260)" text-anchor="middle">
+    <g filter="url(#shadow)">
+      <text x="0" y="0" font-family="'Segoe Script', 'Brush Script MT', 'Pacifico', cursive" font-size="140" fill="url(#logoGrad)" font-weight="700" dominant-baseline="middle">JustGirls</text>
+      <path d="M-340 60 C -220 110 -80 100 40 60" fill="none" stroke="#ff4da6" stroke-width="8" stroke-linecap="round" opacity="0.9" />
+    </g>
+
     <text x="0" y="160" font-family="Inter, Helvetica, Arial, sans-serif" font-size="28" fill="#ff4da6" font-weight="700">Premier OnlyFans Creator Management</text>
     <text x="0" y="200" font-family="Inter, Helvetica, Arial, sans-serif" font-size="20" fill="#6b213f">We scale your income and build your brand — join our network.</text>
   </g>
