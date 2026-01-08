@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Layout from '../components/layout/Layout';
 import { motion } from 'framer-motion';
 
@@ -11,31 +11,31 @@ import phonesImg from '../assets/how-we-work-page/phones.png';
 const HowWeWork: React.FC = () => {
   // Animation variants
   const fadeInUp = {
-    hidden: { opacity: 0, y: 60 },
+    hidden: { opacity: 0, y: 40 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.68, ease: [0.22, 1, 0.36, 1] }
     }
   };
 
   const fadeInLeft = {
-    hidden: { opacity: 0, x: -60 },
+    hidden: { opacity: 0, x: -36 },
     visible: { 
       opacity: 1, 
       x: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.68, ease: [0.22, 1, 0.36, 1] }
     }
-  };
+  }; 
 
   const fadeInRight = {
-    hidden: { opacity: 0, x: 60 },
+    hidden: { opacity: 0, x: 36 },
     visible: { 
       opacity: 1, 
       x: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
+      transition: { duration: 0.68, ease: [0.22, 1, 0.36, 1] }
     }
-  };
+  }; 
 
 
   const staggerContainer = {
@@ -43,10 +43,95 @@ const HowWeWork: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.12,
+        when: 'beforeChildren'
       }
     }
   };
+
+  const stepVariants = {
+    hidden: { opacity: 0, y: 28 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.68, ease: [0.22, 1, 0.36, 1] } }
+  };
+
+
+  const ctaVariant = {
+    hidden: { opacity: 0, y: 18 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+  };
+
+  // Progress bar & node tracking for roadmap
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const stepRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const ctaRef = useRef<HTMLDivElement | null>(null);
+  const [fillPercent, setFillPercent] = useState(0);
+  const [active, setActive] = useState(0);
+  // Persist completion once the user reaches the final node (use ref for closure safety)
+  const completedRef = useRef(false);
+
+  useEffect(() => {
+    const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+
+    let ticking = false;
+
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const container = containerRef.current;
+        if (!container) {
+          ticking = false;
+          return;
+        }
+        const containerRect = container.getBoundingClientRect();
+        const containerTop = containerRect.top + window.scrollY;
+        const containerHeight = container.offsetHeight || containerRect.height || 1;
+        const viewportCenter = window.scrollY + window.innerHeight / 2;
+        const progress = clamp((viewportCenter - containerTop) / containerHeight, 0, 1);
+
+        // compute node absolute positions on the fly and determine active index
+        const refs = [...stepRefs.current, ctaRef.current];
+        const nodeAbsPositions = refs.map(el => {
+          if (!el) return Infinity;
+          const r = el.getBoundingClientRect();
+          return r.top + window.scrollY;
+        });
+
+        let idx = 0;
+        for (let i = 0; i < nodeAbsPositions.length; i++) {
+          if (viewportCenter >= nodeAbsPositions[i] - 10) idx = i + 1;
+        }
+
+        // If already completed (reached 4), lock the progress and active step.
+        if (completedRef.current) {
+          setFillPercent(100);
+          // keep active locked to final
+          setActive(prev => Math.max(prev, 4));
+        } else {
+          if (idx >= 4) {
+            // Mark completed and lock the bar to 100%
+            completedRef.current = true;
+            setActive(4);
+            setFillPercent(100);
+          } else {
+            setActive(idx);
+            setFillPercent(progress * 100);
+          }
+        }
+
+        ticking = false;
+      });
+    }
+
+    // run once to initialize the progress/active state
+    onScroll();
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, []);
 
   return (
     <Layout>
@@ -89,191 +174,111 @@ const HowWeWork: React.FC = () => {
 
       {/* Process Steps Section with Center Roadmap Line */}
       <section className="py-20 px-6 md:px-12 lg:px-20 bg-background-light overflow-hidden">
-        <div className="max-w-7xl mx-auto relative">
-          {/* Center Vertical Line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-pink-200 via-pink-400 to-pink-200 transform -translate-x-1/2 hidden md:block"></div>
-          
-          {/* Step 1: Custom Roadmap */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-            className="relative mb-32"
-          >
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              {/* Left Content */}
-              <motion.div variants={fadeInLeft} className="md:text-left space-y-6 md:pr-16 pt-8 md:pt-10 relative">
-                <motion.div
-                  initial={{ y: -6, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.45 }}
-                  className="inline-flex items-center mb-4"
-                >
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-pink-400 rounded-full blur-xl opacity-60 scale-125" />
-                    <span className="relative z-10 w-10 h-10 md:w-12 md:h-12 bg-pink-600 text-white rounded-full flex items-center justify-center font-semibold md:font-bold text-sm md:text-base shadow-lg border-4 border-white">1</span>
-                  </div>
-                </motion.div>
-                <h2 className="text-4xl md:text-5xl font-bold">Custom Roadmap</h2>
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  Embracing your vision is our forte at Sakura Management. 
-                  We align with your content boundaries, recognizing that 
-                  the right fit of individuality is what propels an account to 
-                  greatness and helps build up a brand for long-term 
-                  growth and success.
-                </p>
-              </motion.div>
-              
-              {/* Right Image */}
-              <motion.div variants={fadeInRight} className="relative md:pl-16">
-                <motion.div 
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="relative"
-                >
-                  <div className="absolute inset-0 bg-pink-300 rounded-full blur-3xl opacity-30 scale-150"></div>
-                  <img 
-                    src={roadmapImg1} 
-                    alt="Custom Roadmap Form" 
-                    className="relative z-10 w-full max-w-md mx-auto md:mx-0 drop-shadow-2xl"
-                  />
-                </motion.div>
-              </motion.div>
+        <div ref={containerRef} className="max-w-7xl mx-auto relative">
+          {/* Progress track + fill + nodes */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-[2px] transform -translate-x-1/2 block pointer-events-none z-0" aria-hidden>
+            <div className="relative h-full w-1 bg-gray-200 rounded-full overflow-hidden">
+              <motion.div initial={{ height: '0%' }} animate={{ height: `${fillPercent}%` }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} className="absolute left-0 top-0 w-full bg-pink-500 origin-top rounded-full will-change-[height]" />
             </div>
-            
-            {/* Header Badge (above content) */}
 
-          </motion.div>
+            {/* Node markers intentionally removed — plain roadmap only */} 
+          </div>
+
+          {/* Step 1: Custom Roadmap */}
+          <div ref={el => stepRefs.current[0] = el} className="relative mb-32">
+            <motion.div initial="hidden" variants={stepVariants} animate={active >= 1 ? 'visible' : 'hidden'} className="relative z-20">
+              <div className="bg-white rounded-2xl shadow-xl ring-1 ring-black/6 p-6 md:p-12 overflow-visible">
+                <div className="grid md:grid-cols-2 gap-12 items-center">
+                  {/* Left Content */}
+                  <motion.div variants={fadeInLeft} className="text-center md:text-left space-y-6 md:pr-16 pt-8 md:pt-10 relative">
+                    <motion.div initial={{ y: -6, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.45 }} className="inline-flex items-center mb-4">
+                      <div className="relative">
+                        <div className="absolute inset-0 bg-pink-400 rounded-full blur-xl opacity-60 scale-125" />
+                        <span className="relative z-10 w-10 h-10 md:w-12 md:h-12 bg-pink-600 text-white rounded-full flex items-center justify-center font-semibold md:font-bold text-sm md:text-base shadow-lg border-4 border-white">1</span>
+                      </div>
+                    </motion.div>
+                    <h2 className="text-4xl md:text-5xl font-bold">Custom Roadmap</h2>
+                    <p className="text-lg text-gray-700 leading-relaxed">Embracing your vision is our forte at Sakura Management. We align with your content boundaries, recognizing that the right fit of individuality is what propels an account to greatness and helps build up a brand for long-term growth and success.</p>
+                  </motion.div>
+
+                  {/* Right Image */}
+                  <motion.div variants={fadeInRight} className="relative md:pl-16">
+                    <motion.div initial={{ scale: 0.8, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="relative">
+                      <div className="absolute inset-0 bg-pink-300 rounded-full blur-3xl opacity-30 scale-150" />
+                      <img src={roadmapImg1} alt="Custom Roadmap Form" className="relative z-10 w-full max-w-md mx-auto md:mx-0 drop-shadow-2xl" />
+                    </motion.div>
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
 
           {/* Step 2: Masterwork Management */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-            className="relative mb-32"
-          >
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              {/* Left Image */}
-              <motion.div variants={fadeInLeft} className="relative md:pr-16 md:order-1 order-2">
-                <motion.div 
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="relative"
-                >
-                  <div className="absolute inset-0 bg-pink-300 rounded-full blur-3xl opacity-30 scale-150"></div>
-                  <img 
-                    src={roadmapImg2} 
-                    alt="Masterwork Management Dashboard" 
-                    className="relative z-10 w-full max-w-md mx-auto md:ml-auto md:mr-0 drop-shadow-2xl"
-                  />
-                </motion.div>
-              </motion.div>
-              
-              {/* Right Content */}
-              <motion.div variants={fadeInRight} className="space-y-6 md:pl-16 md:order-2 order-1 pt-8 md:pt-10 relative">
-                <motion.div
-                  initial={{ y: -6, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.45 }}
-                  className="inline-flex items-center mb-4"
-                >
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-pink-400 rounded-full blur-xl opacity-60 scale-125" />
-                    <span className="relative z-10 w-10 h-10 md:w-12 md:h-12 bg-pink-600 text-white rounded-full flex items-center justify-center font-semibold md:font-bold text-sm md:text-base shadow-lg border-4 border-white">2</span>
-                  </div>
-                </motion.div>
-                <h2 className="text-4xl md:text-5xl font-bold">Masterwork Management</h2>
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  Creators find in us a partner like no other, driven by 
-                  relentless focus. Revenue surges under our US team's 
-                  touch, emphasizing genuine fan rapport. Building 
-                  personal connections with each fan allows, in-time, to 
-                  build a loyal fan-base around your brand.
-                </p>
-              </motion.div>
-            </div>
-            
-            {/* Header Badge (above content - left) */}
+          <div ref={el => stepRefs.current[1] = el} className="relative mb-32">
+            <motion.div initial="hidden" variants={stepVariants} animate={active >= 2 ? 'visible' : 'hidden'} className="relative z-20">
+              <div className="bg-white rounded-2xl shadow-xl ring-1 ring-black/6 p-6 md:p-12 overflow-visible">
+                <div className="grid md:grid-cols-2 gap-12 items-center">
+                  {/* Left Image */}
+                  <motion.div variants={fadeInLeft} className="relative md:pr-16 md:order-1 order-2">
+                    <motion.div initial={{ scale: 0.8, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="relative">
+                      <div className="absolute inset-0 bg-pink-300 rounded-full blur-3xl opacity-30 scale-150" />
+                      <img src={roadmapImg2} alt="Masterwork Management Dashboard" className="relative z-10 w-full max-w-md mx-auto md:ml-auto md:mr-0 drop-shadow-2xl" />
+                    </motion.div>
+                  </motion.div>
 
-          </motion.div>
+                  {/* Right Content */}
+                  <motion.div variants={fadeInRight} className="text-center md:text-left space-y-6 md:pl-16 md:order-2 order-1 pt-8 md:pt-10 relative">
+                    <motion.div initial={{ y: -6, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.45 }} className="inline-flex items-center mb-4">
+                      <div className="relative">
+                        <div className="absolute inset-0 bg-pink-400 rounded-full blur-xl opacity-60 scale-125" />
+                        <span className="relative z-10 w-10 h-10 md:w-12 md:h-12 bg-pink-600 text-white rounded-full flex items-center justify-center font-semibold md:font-bold text-sm md:text-base shadow-lg border-4 border-white">2</span>
+                      </div>
+                    </motion.div>
+                    <h2 className="text-4xl md:text-5xl font-bold">Masterwork Management</h2>
+                    <p className="text-lg text-gray-700 leading-relaxed">Creators find in us a partner like no other, driven by relentless focus. Revenue surges under our US team's touch, emphasizing genuine fan rapport. Building personal connections with each fan allows, in-time, to build a loyal fan-base around your brand.</p>
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
 
           {/* Step 3: Viral Marketing */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-            className="relative mb-20"
-          >
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              {/* Left Content */}
-              <motion.div variants={fadeInLeft} className="md:text-left space-y-6 md:pr-16 pt-8 md:pt-10 relative">
-                <motion.div
-                  initial={{ y: -6, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.45 }}
-                  className="inline-flex items-center mb-4"
-                >
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-pink-400 rounded-full blur-xl opacity-60 scale-125" />
-                    <span className="relative z-10 w-10 h-10 md:w-12 md:h-12 bg-pink-600 text-white rounded-full flex items-center justify-center font-semibold md:font-bold text-sm md:text-base shadow-lg border-4 border-white">3</span>
-                  </div>
-                </motion.div>
-                <h2 className="text-4xl md:text-5xl font-bold">Viral Marketing</h2>
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  Our agency specializes in data-driven marketing tailored 
-                  to each creator's personality and goals. We harness the 
-                  power of Instagram, Twitter, YouTube, and other social 
-                  platforms to attract high-quality subscribers and drive 
-                  substantial traffic to your OnlyFans page. With our deep 
-                  knowledge of platform algorithms and content strategies, 
-                  we're dedicated to elevating your brand and achieving the 
-                  monthly milestones you've always envisioned. Reach out 
-                  today to discover how we can help you surpass your 
-                  OnlyFans revenue goals!
-                </p>
-              </motion.div>
-              
-              {/* Right Image */}
-              <motion.div variants={fadeInRight} className="relative md:pl-16">
-                <motion.div 
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="relative"
-                >
-                  <div className="absolute inset-0 bg-pink-300 rounded-full blur-3xl opacity-30 scale-150"></div>
-                  <img 
-                    src={roadmapImg3} 
-                    alt="Viral Marketing Analytics" 
-                    className="relative z-10 w-full max-w-md mx-auto md:mx-0 drop-shadow-2xl"
-                  />
-                </motion.div>
-              </motion.div>
-            </div>
-            
-            {/* Header Badge (above content) */}
+          <div ref={el => stepRefs.current[2] = el} className="relative mb-20">
+            <motion.div initial="hidden" variants={stepVariants} animate={active >= 3 ? 'visible' : 'hidden'} className="relative z-20">
+              <div className="bg-white rounded-2xl shadow-xl ring-1 ring-black/6 p-6 md:p-12 overflow-visible">
+                <div className="grid md:grid-cols-2 gap-12 items-center">
+                  {/* Left Content */}
+                  <motion.div variants={fadeInLeft} className="text-center md:text-left space-y-6 md:pr-16 pt-8 md:pt-10 relative">
+                    <motion.div initial={{ y: -6, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.45 }} className="inline-flex items-center mb-4">
+                      <div className="relative">
+                        <div className="absolute inset-0 bg-pink-400 rounded-full blur-xl opacity-60 scale-125" />
+                        <span className="relative z-10 w-10 h-10 md:w-12 md:h-12 bg-pink-600 text-white rounded-full flex items-center justify-center font-semibold md:font-bold text-sm md:text-base shadow-lg border-4 border-white">3</span>
+                      </div>
+                    </motion.div>
+                    <h2 className="text-4xl md:text-5xl font-bold">Viral Marketing</h2>
+                    <p className="text-lg text-gray-700 leading-relaxed">Our agency specializes in data-driven marketing tailored to each creator's personality and goals. We harness the power of Instagram, Twitter, YouTube, and other social platforms to attract high-quality subscribers and drive substantial traffic to your OnlyFans page. With our deep knowledge of platform algorithms and content strategies, we're dedicated to elevating your brand and achieving the monthly milestones you've always envisioned. Reach out today to discover how we can help you surpass your OnlyFans revenue goals!</p>
+                  </motion.div>
 
-          </motion.div>
+                  {/* Right Image */}
+                  <motion.div variants={fadeInRight} className="relative md:pl-16">
+                    <motion.div initial={{ scale: 0.8, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="relative">
+                      <div className="absolute inset-0 bg-pink-300 rounded-full blur-3xl opacity-30 scale-150" />
+                      <img src={roadmapImg3} alt="Viral Marketing Analytics" className="relative z-10 w-full max-w-md mx-auto md:mx-0 drop-shadow-2xl" />
+                    </motion.div>
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
 
           {/* CTA Section - What Are You Waiting For? */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-            className="relative mt-12"
-          >
+          <div ref={ctaRef} className="relative mt-12">
+            <motion.div
+              initial="hidden"
+              variants={ctaVariant}
+              animate={active >= 4 ? 'visible' : 'hidden'}
+              className="relative"
+            >
             <div className="max-w-6xl mx-auto">
               <div className="relative bg-gradient-to-br from-pink-300 to-pink-200 rounded-2xl py-6 md:py-8 px-6 md:px-12 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8 overflow-hidden max-h-[420px] md:max-h-[560px]">
                 {/* decorative background (SVG waves + soft blur) */}
@@ -329,6 +334,7 @@ const HowWeWork: React.FC = () => {
               </div>
             </div>
           </motion.div>
+        </div>
         </div>
       </section>
 
