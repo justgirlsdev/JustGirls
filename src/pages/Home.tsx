@@ -14,7 +14,7 @@ const Home: React.FC = () => {
       title="JustGirls - Premier OnlyFans Creator Management Agency"
       description="Launch your full backend system in 72 hours. We scale your income, handle DMs, and build your brand – so you never burn out again."
     >
-      <SEO title="JustGirls - Premier OnlyFans Creator Management Agency" description="Launch your full backend system in 72 hours. We scale your income, handle DMs, and build your brand – so you never burn out again." ogImage="/og-image.svg" jsonLd={{"@context":"https://schema.org","@type":"WebPage","name":"JustGirls","description":"Premier OnlyFans Creator Management Agency"}} />
+      <SEO title="JustGirls - Premier OnlyFans Creator Management Agency" description="Launch your full backend system in 72 hours. We scale your income, handle DMs, and build your brand – so you never burn out again." ogImage="/og-image.png" jsonLd={{"@context":"https://schema.org","@type":"WebPage","name":"JustGirls","description":"Premier OnlyFans Creator Management Agency"}} />
       <Hero />
       <Services />
       <Mastery />

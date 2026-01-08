@@ -19,7 +19,7 @@ const FAQPage: React.FC = () => {
       title="Frequently Asked Questions - JustGirls"
       description="Answers about partnering with JustGirls: costs, contracts, ownership, timelines, and more."
     >
-      <SEO title="FAQ - JustGirls" description="Answers about partnering with JustGirls: costs, contracts, ownership, timelines, and more." ogImage="/og-image.svg" jsonLd={{"@context":"https://schema.org","@type":"FAQPage","mainEntity":mainEntity}} />
+      <SEO title="FAQ - JustGirls" description="Answers about partnering with JustGirls: costs, contracts, ownership, timelines, and more." ogImage="/og-image.png" jsonLd={{"@context":"https://schema.org","@type":"FAQPage","mainEntity":mainEntity}} />
       <FAQ />
     </Layout>
   );

@@ -141,7 +141,7 @@ const HowWeWork: React.FC = () => {
 
   return (
     <Layout title="How We Work - JustGirls" description="Discover our 3-step process to grow your OnlyFans: Custom roadmap, management, and viral marketing.">
-      <SEO title="How We Work - JustGirls" description="Discover our 3-step process to grow your OnlyFans: Custom roadmap, management, and viral marketing." ogImage="/og-image.svg" jsonLd={{"@context":"https://schema.org","@type":"WebPage","name":"How We Work - JustGirls","description":"Discover our 3-step process to grow your OnlyFans: Custom roadmap, management, and viral marketing."}} />
+      <SEO title="How We Work - JustGirls" description="Discover our 3-step process to grow your OnlyFans: Custom roadmap, management, and viral marketing." ogImage="/og-image.png" jsonLd={{"@context":"https://schema.org","@type":"WebPage","name":"How We Work - JustGirls","description":"Discover our 3-step process to grow your OnlyFans: Custom roadmap, management, and viral marketing."}} />
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center justify-center px-4 py-20 bg-gradient-to-b from-white to-pink-50">
         <div className="max-w-7xl mx-auto text-center">
