@@ -50,7 +50,7 @@ const OnboardingModal: React.FC = () => {
       // only attach the current path when opened from mobile
       try {
         if (typeof window !== 'undefined' && window.innerWidth < 768) {
-          setAnswers(prev => ({ ...prev, referrer: window.location.pathname }));
+          setAnswers((prev: any) => ({ ...prev, referrer: window.location.pathname }));
         }
       } catch (e) { /* ignore */ }
     };
